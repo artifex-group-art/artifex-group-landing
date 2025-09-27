@@ -19,6 +19,12 @@ export async function GET(
 						email: true,
 					},
 				},
+				category: true,
+				images: {
+					orderBy: {
+						order: 'asc',
+					},
+				},
 			},
 		})
 

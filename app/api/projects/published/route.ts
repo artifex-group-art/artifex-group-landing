@@ -7,14 +7,11 @@ export async function GET() {
 			where: {
 				published: true,
 			},
-			select: {
-				id: true,
-				title: true,
-				description: true,
-				imageUrl: true,
-				slug: true,
-				featured: true,
-				createdAt: true,
+			include: {
+				category: true,
+				images: {
+					orderBy: { order: 'asc' },
+				},
 			},
 			orderBy: [{ featured: 'desc' }, { createdAt: 'desc' }],
 		})

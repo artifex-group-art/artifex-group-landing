@@ -48,6 +48,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   projects      Project[]
+  news          News[]
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 }
@@ -105,6 +106,58 @@ model ProjectImage {
   updatedAt DateTime @updatedAt
 
   @@index([projectId])
+  @@index([order])
+}
+
+model HeroImage {
+  id        String   @id @default(cuid())
+  url       String
+  s3Key     String? // S3 object key for deletion
+  fileName  String
+  fileSize  Int?
+  mimeType  String?
+  order     Int      @default(0)
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([active])
+  @@index([order])
+}
+
+model News {
+  id          String      @id @default(cuid())
+  title       String
+  description String      @db.Text
+  content     String?     @db.Text
+  imageUrl    String? // Main image URL (for backward compatibility)
+  slug        String      @unique
+  published   Boolean     @default(false)
+  featured    Boolean     @default(false)
+  images      NewsImage[]
+  authorId    String
+  author      User        @relation(fields: [authorId], references: [id])
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  @@index([published])
+  @@index([featured])
+}
+
+model NewsImage {
+  id        String   @id @default(cuid())
+  url       String
+  fileName  String
+  fileSize  Int?
+  mimeType  String?
+  caption   String?
+  order     Int      @default(0)
+  newsId    String
+  news      News     @relation(fields: [newsId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([newsId])
   @@index([order])
 }
 

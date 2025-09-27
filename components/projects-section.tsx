@@ -1,12 +1,23 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useRef, useEffect, useState } from 'react'
-import Link from 'next/link'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Eye, Calendar, Tag, Images } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+
+// DB dan projectlar ma'lumotini olish uchun interface (Prisma schema ga mos)
+interface ProjectImage {
+	id: string
+	url: string
+	fileName: string
+	caption?: string
+	order: number
+}
+
+interface Category {
+	id: string
+	name: string
+	slug: string
+}
 
 interface Project {
 	id: string
@@ -14,279 +25,193 @@ interface Project {
 	description: string
 	imageUrl?: string
 	slug: string
-	featured: boolean
 	published: boolean
-	category?: {
-		id: string
-		name: string
-		slug: string
-	}
-	images: Array<{
-		id: string
-		url: string
-		fileName: string
-		caption?: string
-		order: number
-	}>
+	featured: boolean
+	category?: Category
+	images: ProjectImage[]
 	createdAt: string
+	updatedAt: string
 }
 
-interface Category {
-	id: string
-	name: string
-	slug: string
-	_count: {
-		projects: number
+// Real API dan projectlarni olish
+const getProjects = async (): Promise<Project[]> => {
+	try {
+		const response = await fetch('/api/projects/published')
+		if (!response.ok) {
+			throw new Error('Failed to fetch projects')
+		}
+		return await response.json()
+	} catch (error) {
+		console.error('Error fetching projects:', error)
+		return []
 	}
 }
 
-export function ProjectsSection() {
-	const scrollRef = useRef<HTMLDivElement>(null)
+export default function ProjectsSection() {
 	const [projects, setProjects] = useState<Project[]>([])
-	const [categories, setCategories] = useState<Category[]>([])
 	const [loading, setLoading] = useState(true)
-	const [selectedCategory, setSelectedCategory] = useState<string>('all')
+	const [error, setError] = useState<string | null>(null)
+	const router = useRouter()
 
 	useEffect(() => {
-		fetchData()
+		const loadProjects = async () => {
+			try {
+				setError(null)
+				const projectsData = await getProjects()
+				setProjects(projectsData)
+			} catch (error) {
+				console.error('Error loading projects:', error)
+				setError('Projectlarni yuklashda xatolik yuz berdi')
+			} finally {
+				setLoading(false)
+			}
+		}
+
+		loadProjects()
 	}, [])
 
-	const fetchData = async () => {
-		try {
-			const [projectsRes, categoriesRes] = await Promise.all([
-				fetch('/api/projects/published'),
-				fetch('/api/categories'),
-			])
-
-			if (projectsRes.ok) {
-				const projectsData = await projectsRes.json()
-				setProjects(projectsData)
-			}
-
-			if (categoriesRes.ok) {
-				const categoriesData = await categoriesRes.json()
-				setCategories(categoriesData.filter((cat: Category) => cat._count.projects > 0))
-			}
-		} catch (error) {
-			console.error('Error fetching data:', error)
-		} finally {
-			setLoading(false)
-		}
+	const handleProjectClick = (slug: string) => {
+		router.push(`/projects/${slug}`)
 	}
-
-	const filteredProjects = selectedCategory === 'all' 
-		? projects 
-		: projects.filter(project => project.category?.id === selectedCategory)
-
-	const featuredProjects = filteredProjects.filter(project => project.featured)
-	const regularProjects = filteredProjects.filter(project => !project.featured)
 
 	if (loading) {
 		return (
-			<section className='py-32 bg-card'>
-				<div className='max-w-7xl mx-auto px-6 lg:px-8'>
-					<div className='flex justify-center items-center min-h-[400px]'>
-						<div className='animate-spin rounded-full h-12 w-12 border-b-2 border-primary'></div>
+			<section id='projects' className='py-16 bg-white'>
+				{/* Section Header */}
+				<div className='max-w-7xl mx-auto px-6 lg:px-8 mb-12'>
+					<div className='text-center'>
+						<h2 className='font-heading font-semibold text-4xl lg:text-6xl text-primary mb-4 leading-tight'>
+							Our Projects
+						</h2>
+						<p className='text-muted-foreground text-lg max-w-2xl mx-auto'>
+							Explore our portfolio of architectural excellence and innovative
+							design solutions
+						</p>
 					</div>
+				</div>
+
+				{/* Loading Grid */}
+				<div className='grid grid-cols-3 gap-0'>
+					{[...Array(6)].map((_, i) => (
+						<div key={i} className='aspect-[4/5] bg-gray-200 animate-pulse' />
+					))}
+				</div>
+			</section>
+		)
+	}
+
+	if (error) {
+		return (
+			<section id='projects' className='py-16 bg-white'>
+				{/* Section Header */}
+				<div className='max-w-7xl mx-auto px-6 lg:px-8 mb-12'>
+					<div className='text-center'>
+						<h2 className='font-heading font-semibold text-4xl lg:text-6xl text-primary mb-4 leading-tight'>
+							Our Projects
+						</h2>
+						<p className='text-muted-foreground text-lg max-w-2xl mx-auto'>
+							Explore our portfolio of architectural excellence and innovative
+							design solutions
+						</p>
+					</div>
+				</div>
+
+				{/* Error Message */}
+				<div className='flex items-center justify-center h-64'>
+					<p className='text-red-500 text-center font-medium'>{error}</p>
+				</div>
+			</section>
+		)
+	}
+
+	if (projects.length === 0) {
+		return (
+			<section id='projects' className='py-16 bg-white'>
+				{/* Section Header */}
+				<div className='max-w-7xl mx-auto px-6 lg:px-8 mb-12'>
+					<div className='text-center'>
+						<h2 className='font-heading font-semibold text-4xl lg:text-6xl text-primary mb-4 leading-tight'>
+							Our Projects
+						</h2>
+						<p className='text-muted-foreground text-lg max-w-2xl mx-auto'>
+							Explore our portfolio of architectural excellence and innovative
+							design solutions
+						</p>
+					</div>
+				</div>
+
+				{/* Empty State */}
+				<div className='flex items-center justify-center h-64'>
+					<p className='text-gray-500 text-center font-medium'>
+						No projects found at the moment
+					</p>
 				</div>
 			</section>
 		)
 	}
 
 	return (
-		<section className='py-32 bg-card'>
-			<div className='max-w-7xl mx-auto px-6 lg:px-8'>
-				<motion.div
-					className='text-center mb-16'
-					initial={{ opacity: 0, y: 20 }}
-					whileInView={{ opacity: 1, y: 0 }}
-					viewport={{ once: true }}
-					transition={{ duration: 0.8, ease: 'easeInOut' }}
-				>
-					<h2 className='font-heading font-semibold text-4xl lg:text-5xl text-primary mb-4 leading-tight'>
-						Introducing our modern and national projects
+		<section id='projects' className='py-16 bg-white'>
+			{/* Section Header */}
+			<motion.div
+				className='max-w-7xl mx-auto px-6 lg:px-8 mb-12'
+				initial={{ opacity: 0, y: 30 }}
+				whileInView={{ opacity: 1, y: 0 }}
+				viewport={{ once: true }}
+				transition={{ duration: 0.8, ease: 'easeInOut' }}
+			>
+				<div className='text-center'>
+					<h2 className='font-heading font-semibold text-4xl lg:text-6xl text-primary mb-4 leading-tight'>
+						Our Projects
 					</h2>
 					<p className='text-muted-foreground text-lg max-w-2xl mx-auto'>
-						Explore our diverse portfolio of innovative architectural solutions across different categories
+						Explore our portfolio of architectural excellence and innovative
+						design solutions
 					</p>
-				</motion.div>
-
-				{/* Category Filter */}
-				{categories.length > 0 && (
-					<motion.div
-						className='flex flex-wrap justify-center gap-3 mb-12'
-						initial={{ opacity: 0, y: 20 }}
-						whileInView={{ opacity: 1, y: 0 }}
-						viewport={{ once: true }}
-						transition={{ duration: 0.6, delay: 0.2 }}
-					>
-						<Button
-							variant={selectedCategory === 'all' ? 'default' : 'outline'}
-							onClick={() => setSelectedCategory('all')}
-							className='flex items-center space-x-2'
-						>
-							<Tag className='h-4 w-4' />
-							<span>All Projects ({projects.length})</span>
-						</Button>
-						{categories.map((category) => (
-							<Button
-								key={category.id}
-								variant={selectedCategory === category.id ? 'default' : 'outline'}
-								onClick={() => setSelectedCategory(category.id)}
-								className='flex items-center space-x-2'
-							>
-								<Tag className='h-4 w-4' />
-								<span>{category.name} ({category._count.projects})</span>
-							</Button>
-						))}
-					</motion.div>
-				)}
-
-				{filteredProjects.length === 0 ? (
-					<div className='text-center py-16'>
-						<Tag className='h-12 w-12 text-muted-foreground mx-auto mb-4' />
-						<p className='text-muted-foreground text-lg'>
-							{selectedCategory === 'all' 
-								? 'No projects available at the moment.'
-								: 'No projects found in this category.'
-							}
-						</p>
-					</div>
-				) : (
-					<div className='space-y-16'>
-						{/* Featured Projects */}
-						{featuredProjects.length > 0 && (
-							<motion.div
-								initial={{ opacity: 0, y: 20 }}
-								whileInView={{ opacity: 1, y: 0 }}
-								viewport={{ once: true }}
-								transition={{ duration: 0.6, delay: 0.3 }}
-							>
-								<h3 className='text-2xl font-semibold text-foreground mb-8 flex items-center space-x-2'>
-									<Eye className='h-6 w-6 text-primary' />
-									<span>Featured Projects</span>
-								</h3>
-								<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
-									{featuredProjects.map((project, index) => (
-										<ProjectCard key={project.id} project={project} index={index} featured />
-									))}
-								</div>
-							</motion.div>
-						)}
-
-						{/* Regular Projects */}
-						{regularProjects.length > 0 && (
-							<motion.div
-								initial={{ opacity: 0, y: 20 }}
-								whileInView={{ opacity: 1, y: 0 }}
-								viewport={{ once: true }}
-								transition={{ duration: 0.6, delay: 0.4 }}
-							>
-								{featuredProjects.length > 0 && (
-									<h3 className='text-2xl font-semibold text-foreground mb-8 flex items-center space-x-2'>
-										<Calendar className='h-6 w-6 text-primary' />
-										<span>All Projects</span>
-									</h3>
-								)}
-								<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
-									{regularProjects.map((project, index) => (
-										<ProjectCard key={project.id} project={project} index={index} />
-									))}
-								</div>
-							</motion.div>
-						)}
-					</div>
-				)}
-			</div>
-		</section>
-	)
-}
-
-interface ProjectCardProps {
-	project: Project
-	index: number
-	featured?: boolean
-}
-
-function ProjectCard({ project, index, featured = false }: ProjectCardProps) {
-	const primaryImage = project.images?.[0]?.url || project.imageUrl || '/placeholder.svg'
-	const imageCount = project.images?.length || 0
-
-	return (
-		<motion.div
-			className='group cursor-pointer'
-			initial={{ opacity: 0, y: 50 }}
-			whileInView={{ opacity: 1, y: 0 }}
-			viewport={{ once: true }}
-			transition={{ duration: 0.6, delay: index * 0.1 }}
-			whileHover={{ y: -8 }}
-		>
-			<Link href={`/projects/${project.slug}`}>
-				<div className={`relative overflow-hidden rounded-xl bg-muted ${
-					featured ? 'h-80 lg:h-96' : 'h-64 lg:h-80'
-				} transition-all duration-500 group-hover:shadow-2xl`}>
-					{/* Image */}
-					<img
-						src={primaryImage}
-						alt={project.title}
-						className='w-full h-full object-cover transition-transform duration-700 group-hover:scale-110'
-					/>
-
-					{/* Overlay */}
-					<div className='absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300' />
-
-					{/* Badges */}
-					<div className='absolute top-4 left-4 flex flex-wrap gap-2'>
-						{featured && (
-							<Badge className='bg-primary text-primary-foreground'>
-								Featured
-							</Badge>
-						)}
-						{project.category && (
-							<Badge variant='secondary' className='bg-background/90'>
-								{project.category.name}
-							</Badge>
-						)}
-						{imageCount > 1 && (
-							<Badge variant='outline' className='bg-background/90 flex items-center space-x-1'>
-								<Images className='h-3 w-3' />
-								<span>{imageCount}</span>
-							</Badge>
-						)}
-					</div>
-
-					{/* Content */}
-					<motion.div
-						className='absolute bottom-0 left-0 right-0 p-6'
-						initial={{ opacity: 0, y: 20 }}
-						whileHover={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.3 }}
-					>
-						<h3 className={`font-heading font-semibold text-white mb-2 ${
-							featured ? 'text-xl lg:text-2xl' : 'text-lg lg:text-xl'
-						}`}>
-							{project.title}
-						</h3>
-						<p className='text-white/90 text-sm lg:text-base line-clamp-2 mb-3'>
-							{project.description}
-						</p>
-						<div className='flex items-center justify-between'>
-							<span className='text-white/70 text-xs lg:text-sm'>
-								{new Date(project.createdAt).toLocaleDateString()}
-							</span>
-							<motion.div
-								className='text-white/80 group-hover:text-white'
-								whileHover={{ scale: 1.1 }}
-							>
-								<Eye className='h-4 w-4' />
-							</motion.div>
-						</div>
-					</motion.div>
-
-					{/* Hover Effect */}
-					<div className='absolute inset-0 border-2 border-transparent group-hover:border-primary/30 rounded-xl transition-all duration-300' />
 				</div>
-			</Link>
-		</motion.div>
+			</motion.div>
+
+			{/* Projects Grid */}
+			<motion.div
+				className='grid grid-cols-3 gap-0'
+				initial={{ opacity: 0 }}
+				whileInView={{ opacity: 1 }}
+				transition={{ duration: 0.8 }}
+				viewport={{ once: true }}
+			>
+				{projects.map((project, index) => {
+					// Birinchi rasmni olish (images array dan yoki imageUrl dan)
+					const firstImage =
+						project.images[0]?.url || project.imageUrl || '/placeholder.jpg'
+
+					return (
+						<motion.div
+							key={project.id}
+							className='aspect-[4/5] overflow-hidden group cursor-pointer relative'
+							initial={{ opacity: 0, scale: 0.9 }}
+							whileInView={{ opacity: 1, scale: 1 }}
+							transition={{ duration: 0.6, delay: index * 0.1 }}
+							viewport={{ once: true }}
+							onClick={() => handleProjectClick(project.slug)}
+						>
+							<img
+								src={firstImage}
+								alt={project.title}
+								className='w-full h-full object-cover transition-all duration-500'
+							/>
+							{/* Hover qoralashish effekti */}
+							<div className='absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-500' />
+
+							{/* Hover da project title ko'rsatish (ixtiyoriy) */}
+							<div className='absolute inset-0 flex items-end justify-start p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500'>
+								<h3 className='text-white font-medium text-sm bg-black/50 backdrop-blur-sm px-2 py-1 rounded'>
+									{project.title}
+								</h3>
+							</div>
+						</motion.div>
+					)
+				})}
+			</motion.div>
+		</section>
 	)
 }

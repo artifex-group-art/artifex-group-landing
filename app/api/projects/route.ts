@@ -58,6 +58,22 @@ export async function POST(request: NextRequest) {
 			.replace(/[^a-z0-9]+/g, '-')
 			.replace(/(^-|-$)/g, '')
 
+		// Ensure admin user exists in database
+		let authorId = session.user.id
+		if (session.user.id === 'admin') {
+			// Create or get admin user from database
+			const adminUser = await prisma.user.upsert({
+				where: { email: session.user.email! },
+				update: {},
+				create: {
+					email: session.user.email!,
+					name: session.user.name || 'Admin',
+					role: 'ADMIN',
+				},
+			})
+			authorId = adminUser.id
+		}
+
 		const project = await prisma.project.create({
 			data: {
 				title,
@@ -66,7 +82,7 @@ export async function POST(request: NextRequest) {
 				categoryId,
 				published: published || false,
 				featured: featured || false,
-				authorId: session.user.id,
+				authorId,
 				imageUrl: images?.[0]?.url || null, // Backward compatibility
 				images: {
 					create:

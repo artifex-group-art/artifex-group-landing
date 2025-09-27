@@ -27,7 +27,7 @@ export async function uploadToS3(
 		Key: key,
 		Body: buffer,
 		ContentType: mimeType,
-		ACL: 'public-read',
+		// ACL removed - bucket must be configured for public access via bucket policy
 	})
 
 	await s3Client.send(command)
@@ -61,7 +61,7 @@ export async function getPresignedUploadUrl(
 		Bucket: BUCKET_NAME,
 		Key: key,
 		ContentType: mimeType,
-		ACL: 'public-read',
+		// ACL removed - bucket must be configured for public access via bucket policy
 	})
 
 	const uploadUrl = await getSignedUrl(s3Client, command, { expiresIn: 3600 })

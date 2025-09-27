@@ -18,6 +18,23 @@ export const authOptions: NextAuthOptions = {
 					return null
 				}
 
+				// Check admin credentials from environment variables
+				const adminEmail = process.env.ADMIN_EMAIL
+				const adminPassword = process.env.ADMIN_PASSWORD
+
+				if (
+					credentials.email === adminEmail &&
+					credentials.password === adminPassword
+				) {
+					return {
+						id: 'admin',
+						email: adminEmail,
+						name: 'Admin',
+						role: 'ADMIN',
+					}
+				}
+
+				// Check database users
 				const user = await prisma.user.findUnique({
 					where: {
 						email: credentials.email,

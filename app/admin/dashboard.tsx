@@ -42,7 +42,7 @@ import {
 	FolderOpen,
 	Eye,
 	Tag,
-	Images,
+	FileText,
 } from 'lucide-react'
 import { motion } from 'framer-motion'
 
@@ -78,15 +78,42 @@ interface Category {
 	}
 }
 
+interface News {
+	id: string
+	title: string
+	description: string
+	content?: string
+	imageUrl?: string
+	slug: string
+	published: boolean
+	featured: boolean
+	author: {
+		id: string
+		name: string
+		email: string
+	}
+	images: Array<{
+		id: string
+		url: string
+		fileName: string
+		caption?: string
+		order: number
+	}>
+	createdAt: string
+}
+
 export default function AdminDashboard() {
 	const { data: session, status } = useSession()
 	const router = useRouter()
 	const [projects, setProjects] = useState<Project[]>([])
 	const [categories, setCategories] = useState<Category[]>([])
+	const [news, setNews] = useState<News[]>([])
 	const [loading, setLoading] = useState(true)
 	const [showProjectDialog, setShowProjectDialog] = useState(false)
 	const [showCategoryDialog, setShowCategoryDialog] = useState(false)
+	const [showNewsDialog, setShowNewsDialog] = useState(false)
 	const [editingProject, setEditingProject] = useState<Project | null>(null)
+	const [editingNews, setEditingNews] = useState<News | null>(null)
 	const [projectFormData, setProjectFormData] = useState({
 		title: '',
 		description: '',
@@ -95,6 +122,14 @@ export default function AdminDashboard() {
 		featured: false,
 	})
 	const [projectImages, setProjectImages] = useState<UploadedImage[]>([])
+	const [newsFormData, setNewsFormData] = useState({
+		title: '',
+		description: '',
+		content: '',
+		published: false,
+		featured: false,
+	})
+	const [newsImages, setNewsImages] = useState<UploadedImage[]>([])
 	const [categoryFormData, setCategoryFormData] = useState({
 		name: '',
 		description: '',
@@ -110,24 +145,49 @@ export default function AdminDashboard() {
 	}, [session, status, router])
 
 	const fetchData = async () => {
+		console.log('Starting fetchData...')
+		setLoading(true)
 		try {
-			const [projectsRes, categoriesRes] = await Promise.all([
+			console.log('Fetching data from APIs...')
+			const [projectsRes, categoriesRes, newsRes] = await Promise.all([
 				fetch('/api/projects'),
 				fetch('/api/categories'),
+				fetch('/api/news?all=true'),
 			])
+
+			console.log('API responses:', {
+				projects: projectsRes.status,
+				categories: categoriesRes.status,
+				news: newsRes.status,
+			})
 
 			if (projectsRes.ok) {
 				const projectsData = await projectsRes.json()
+				console.log('Projects data:', projectsData)
 				setProjects(projectsData)
+			} else {
+				console.error('Projects API failed:', projectsRes.status)
 			}
 
 			if (categoriesRes.ok) {
 				const categoriesData = await categoriesRes.json()
+				console.log('Categories data:', categoriesData)
 				setCategories(categoriesData)
+			} else {
+				console.error('Categories API failed:', categoriesRes.status)
+			}
+
+			if (newsRes.ok) {
+				const newsData = await newsRes.json()
+				console.log('News data:', newsData)
+				setNews(newsData)
+			} else {
+				console.error('News API failed:', newsRes.status)
 			}
 		} catch (error) {
 			console.error('Error fetching data:', error)
 		} finally {
+			console.log('Setting loading to false')
 			setLoading(false)
 		}
 	}
@@ -184,6 +244,34 @@ export default function AdminDashboard() {
 		}
 	}
 
+	const handleNewsSubmit = async (e: React.FormEvent) => {
+		e.preventDefault()
+		const method = editingNews ? 'PUT' : 'POST'
+		const url = editingNews ? `/api/news/${editingNews.id}` : '/api/news'
+
+		try {
+			const response = await fetch(url, {
+				method,
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					...newsFormData,
+					images: newsImages,
+				}),
+			})
+
+			if (response.ok) {
+				setShowNewsDialog(false)
+				setEditingNews(null)
+				resetNewsForm()
+				fetchData()
+			}
+		} catch (error) {
+			console.error('Error saving news:', error)
+		}
+	}
+
 	const handleDeleteProject = async (id: string) => {
 		if (!confirm('Are you sure you want to delete this project?')) return
 
@@ -237,6 +325,83 @@ export default function AdminDashboard() {
 		resetProjectForm()
 		setShowProjectDialog(true)
 	}
+
+	// News functions
+	const handleDeleteNews = async (id: string) => {
+		if (!confirm('Are you sure you want to delete this news article?')) return
+
+		try {
+			const response = await fetch(`/api/news/${id}`, {
+				method: 'DELETE',
+			})
+
+			if (response.ok) {
+				fetchData()
+			}
+		} catch (error) {
+			console.error('Error deleting news:', error)
+		}
+	}
+
+	const openEditNewsDialog = (newsItem: News) => {
+		setEditingNews(newsItem)
+		setNewsFormData({
+			title: newsItem.title,
+			description: newsItem.description,
+			content: newsItem.content || '',
+			published: newsItem.published,
+			featured: newsItem.featured,
+		})
+		setNewsImages(
+			newsItem.images.map(img => ({
+				url: img.url,
+				fileName: img.fileName,
+				fileSize: 0,
+				mimeType: '',
+				caption: img.caption,
+			}))
+		)
+		setShowNewsDialog(true)
+	}
+
+	const toggleNewsPublished = async (newsItem: News) => {
+		try {
+			const response = await fetch(`/api/news/${newsItem.id}`, {
+				method: 'PATCH',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					published: !newsItem.published,
+				}),
+			})
+
+			if (response.ok) {
+				fetchData()
+			}
+		} catch (error) {
+			console.error('Error toggling news published status:', error)
+		}
+	}
+
+	const resetNewsForm = () => {
+		setNewsFormData({
+			title: '',
+			description: '',
+			content: '',
+			published: false,
+			featured: false,
+		})
+		setNewsImages([])
+	}
+
+	const openCreateNewsDialog = () => {
+		setEditingNews(null)
+		resetNewsForm()
+		setShowNewsDialog(true)
+	}
+
+	const deleteNews = handleDeleteNews
 
 	if (status === 'loading' || loading) {
 		return (
@@ -364,15 +529,13 @@ export default function AdminDashboard() {
 							<CardContent className='p-6'>
 								<div className='flex items-center space-x-4'>
 									<div className='bg-purple-100 dark:bg-purple-900 p-3 rounded-lg'>
-										<Plus className='h-6 w-6 text-purple-600 dark:text-purple-400' />
+										<FileText className='h-6 w-6 text-purple-600 dark:text-purple-400' />
 									</div>
 									<div>
 										<p className='text-sm font-medium text-muted-foreground'>
-											Featured
+											Total News
 										</p>
-										<p className='text-2xl font-bold'>
-											{projects.filter(p => p.featured).length}
-										</p>
+										<p className='text-2xl font-bold'>{news.length}</p>
 									</div>
 								</div>
 							</CardContent>
@@ -418,6 +581,10 @@ export default function AdminDashboard() {
 						>
 							<Tag className='h-4 w-4' />
 							<span>Categories</span>
+						</TabsTrigger>
+						<TabsTrigger value='news' className='flex items-center space-x-2'>
+							<FileText className='h-4 w-4' />
+							<span>News</span>
 						</TabsTrigger>
 					</TabsList>
 
@@ -490,7 +657,7 @@ export default function AdminDashboard() {
 													</TableCell>
 													<TableCell>
 														<div className='flex items-center space-x-1'>
-															<Images className='h-4 w-4 text-muted-foreground' />
+															<FolderOpen className='h-4 w-4 text-muted-foreground' />
 															<span className='text-sm'>
 																{project.images?.length || 0}
 															</span>
@@ -586,6 +753,103 @@ export default function AdminDashboard() {
 											</Card>
 										))}
 									</div>
+								)}
+							</CardContent>
+						</Card>
+					</TabsContent>
+
+					{/* News Tab */}
+					<TabsContent value='news'>
+						<Card>
+							<CardHeader>
+								<div className='flex justify-between items-center'>
+									<CardTitle>News</CardTitle>
+									<Button
+										onClick={openCreateNewsDialog}
+										className='flex items-center space-x-2'
+									>
+										<Plus className='h-4 w-4' />
+										<span>Add News</span>
+									</Button>
+								</div>
+							</CardHeader>
+							<CardContent>
+								{news.length === 0 ? (
+									<div className='text-center py-8'>
+										<FileText className='h-12 w-12 text-muted-foreground mx-auto mb-4' />
+										<p className='text-muted-foreground'>
+											No news articles yet
+										</p>
+									</div>
+								) : (
+									<Table>
+										<TableHeader>
+											<TableRow>
+												<TableHead>Title</TableHead>
+												<TableHead>Author</TableHead>
+												<TableHead>Status</TableHead>
+												<TableHead>Featured</TableHead>
+												<TableHead>Created</TableHead>
+												<TableHead>Actions</TableHead>
+											</TableRow>
+										</TableHeader>
+										<TableBody>
+											{news.map(newsItem => (
+												<TableRow key={newsItem.id}>
+													<TableCell className='font-medium'>
+														{newsItem.title}
+													</TableCell>
+													<TableCell>{newsItem.author.name}</TableCell>
+													<TableCell>
+														<Badge
+															variant={
+																newsItem.published ? 'default' : 'secondary'
+															}
+														>
+															{newsItem.published ? 'Published' : 'Draft'}
+														</Badge>
+													</TableCell>
+													<TableCell>
+														<Badge
+															variant={
+																newsItem.featured ? 'default' : 'outline'
+															}
+														>
+															{newsItem.featured ? 'Featured' : 'Regular'}
+														</Badge>
+													</TableCell>
+													<TableCell>
+														{new Date(newsItem.createdAt).toLocaleDateString()}
+													</TableCell>
+													<TableCell>
+														<div className='flex space-x-2'>
+															<Button
+																variant='ghost'
+																size='sm'
+																onClick={() => openEditNewsDialog(newsItem)}
+															>
+																<Edit className='h-4 w-4' />
+															</Button>
+															<Button
+																variant='ghost'
+																size='sm'
+																onClick={() => toggleNewsPublished(newsItem)}
+															>
+																<Eye className='h-4 w-4' />
+															</Button>
+															<Button
+																variant='ghost'
+																size='sm'
+																onClick={() => deleteNews(newsItem.id)}
+															>
+																<Trash2 className='h-4 w-4' />
+															</Button>
+														</div>
+													</TableCell>
+												</TableRow>
+											))}
+										</TableBody>
+									</Table>
 								)}
 							</CardContent>
 						</Card>
@@ -756,6 +1020,116 @@ export default function AdminDashboard() {
 								Cancel
 							</Button>
 							<Button type='submit'>Create Category</Button>
+						</div>
+					</form>
+				</DialogContent>
+			</Dialog>
+
+			{/* News Dialog */}
+			<Dialog open={showNewsDialog} onOpenChange={setShowNewsDialog}>
+				<DialogContent className='max-w-4xl max-h-[90vh] overflow-y-auto'>
+					<DialogHeader>
+						<DialogTitle>
+							{editingNews ? 'Edit News Article' : 'Create New News Article'}
+						</DialogTitle>
+					</DialogHeader>
+					<form onSubmit={handleNewsSubmit} className='space-y-6'>
+						<div className='space-y-2'>
+							<Label htmlFor='newsTitle'>Title</Label>
+							<Input
+								id='newsTitle'
+								value={newsFormData.title}
+								onChange={e =>
+									setNewsFormData({
+										...newsFormData,
+										title: e.target.value,
+									})
+								}
+								required
+							/>
+						</div>
+
+						<div className='space-y-2'>
+							<Label htmlFor='newsDescription'>Description</Label>
+							<Textarea
+								id='newsDescription'
+								value={newsFormData.description}
+								onChange={e =>
+									setNewsFormData({
+										...newsFormData,
+										description: e.target.value,
+									})
+								}
+								rows={3}
+								required
+							/>
+						</div>
+
+						<div className='space-y-2'>
+							<Label htmlFor='newsContent'>Content</Label>
+							<Textarea
+								id='newsContent'
+								value={newsFormData.content}
+								onChange={e =>
+									setNewsFormData({
+										...newsFormData,
+										content: e.target.value,
+									})
+								}
+								rows={8}
+								placeholder='Full article content...'
+							/>
+						</div>
+
+						<div className='space-y-2'>
+							<Label>Images</Label>
+							<ImageUpload
+								images={newsImages}
+								onChange={setNewsImages}
+								maxImages={10}
+							/>
+						</div>
+
+						<div className='flex items-center space-x-4'>
+							<div className='flex items-center space-x-2'>
+								<Switch
+									id='newsPublished'
+									checked={newsFormData.published}
+									onCheckedChange={checked =>
+										setNewsFormData({
+											...newsFormData,
+											published: checked,
+										})
+									}
+								/>
+								<Label htmlFor='newsPublished'>Published</Label>
+							</div>
+							<div className='flex items-center space-x-2'>
+								<Switch
+									id='newsFeatured'
+									checked={newsFormData.featured}
+									onCheckedChange={checked =>
+										setNewsFormData({
+											...newsFormData,
+											featured: checked,
+										})
+									}
+								/>
+								<Label htmlFor='newsFeatured'>Featured</Label>
+							</div>
+						</div>
+
+						<div className='flex justify-end space-x-2'>
+							<Button
+								type='button'
+								variant='outline'
+								onClick={() => setShowNewsDialog(false)}
+							>
+								Cancel
+							</Button>
+							<Button type='submit'>
+								{editingNews ? 'Update' : 'Create'} News Article
+							</Button>
 						</div>
 					</form>
 				</DialogContent>
