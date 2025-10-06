@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
 
-// Resend configuration
-const resend = new Resend(process.env.RESEND_API_KEY)
+// Resend configuration - only initialize if API key exists
+const resendApiKey = process.env.RESEND_API_KEY
+const resend = resendApiKey ? new Resend(resendApiKey) : null
 
 export async function POST(request: NextRequest) {
 	try {
@@ -25,9 +26,22 @@ export async function POST(request: NextRequest) {
 			)
 		}
 
-		// Email to company
-		const mailOptions = {
-			from: process.env.EMAIL_FROM || process.env.EMAIL_USER,
+		// Check if email service is configured
+		if (!resend) {
+			// Log the contact form submission instead of sending email
+			console.log('Contact form submission:', { name, email, message })
+			return NextResponse.json(
+				{
+					message:
+						'Message received successfully. Email service is not configured.',
+				},
+				{ status: 200 }
+			)
+		}
+
+		// Send email to company using Resend
+		await resend.emails.send({
+			from: process.env.EMAIL_FROM || 'onboarding@resend.dev',
 			to: process.env.EMAIL_TO || 'contact@artifexgroup.com',
 			subject: `New Contact Form Message from ${name}`,
 			html: `
@@ -56,11 +70,11 @@ export async function POST(request: NextRequest) {
 				</div>
 			`,
 			replyTo: email,
-		}
+		})
 
-		// Auto-reply to sender
-		const autoReplyOptions = {
-			from: process.env.EMAIL_FROM || process.env.EMAIL_USER,
+		// Send auto-reply to sender
+		await resend.emails.send({
+			from: process.env.EMAIL_FROM || 'onboarding@resend.dev',
 			to: email,
 			subject: 'Thank you for contacting Artifex Group',
 			html: `
@@ -88,11 +102,7 @@ export async function POST(request: NextRequest) {
 					</div>
 				</div>
 			`,
-		}
-
-		// Send emails
-		await transporter.sendMail(mailOptions)
-		await transporter.sendMail(autoReplyOptions)
+		})
 
 		return NextResponse.json(
 			{ message: 'Message sent successfully' },

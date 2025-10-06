@@ -1,15 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/pages/api/auth/[...nextauth]'
-import formidable from 'formidable'
 import { uploadToS3 } from '@/lib/s3'
-import { readFile } from 'fs/promises'
-
-export const config = {
-	api: {
-		bodyParser: false,
-	},
-}
 
 export async function POST(request: NextRequest) {
 	try {
@@ -19,18 +11,27 @@ export async function POST(request: NextRequest) {
 			return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 		}
 
-		const form = formidable({
-			maxFileSize: 10 * 1024 * 1024, // 10MB
-			filter: ({ mimetype }) => {
-				return mimetype?.startsWith('image/') || false
-			},
-		})
-
 		const data = await request.formData()
 		const file = data.get('file') as File
 
 		if (!file) {
 			return NextResponse.json({ error: 'No file provided' }, { status: 400 })
+		}
+
+		// Validate file size (10MB max)
+		if (file.size > 10 * 1024 * 1024) {
+			return NextResponse.json(
+				{ error: 'File size exceeds 10MB limit' },
+				{ status: 400 }
+			)
+		}
+
+		// Validate file type (images only)
+		if (!file.type.startsWith('image/')) {
+			return NextResponse.json(
+				{ error: 'Only image files are allowed' },
+				{ status: 400 }
+			)
 		}
 
 		const bytes = await file.arrayBuffer()
