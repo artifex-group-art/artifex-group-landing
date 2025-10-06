@@ -76,17 +76,21 @@ export default function ProjectsSection() {
 
 	if (loading) {
 		return (
-			<section id='projects' className='py-16 bg-white'>
+			<section id='projects' className='py-32 bg-white'>
 				{/* Section Header */}
-				<div className='max-w-7xl mx-auto px-6 lg:px-8 mb-12'>
-					<div className='text-center'>
-						<h2 className='font-heading font-semibold text-4xl lg:text-6xl text-primary mb-4 leading-tight'>
-							Our Projects
-						</h2>
-						<p className='text-muted-foreground text-lg max-w-2xl mx-auto'>
-							Explore our portfolio of architectural excellence and innovative
-							design solutions
-						</p>
+				<div className='max-w-7xl mx-auto px-6 lg:px-8 mb-16'>
+					<div className='text-center space-y-8'>
+						<div>
+							<h2 className='font-heading font-semibold text-4xl lg:text-6xl text-primary mb-4 leading-tight'>
+								Project Portfolio
+							</h2>
+							<div className='w-24 h-1 bg-primary/20 mx-auto mt-6 mb-8'></div>
+							<p className='text-primary/70 text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed'>
+								With over 20 years of design and construction experience,
+								ARTIFEX GROUP has successfully delivered landmark projects
+								across different regions
+							</p>
+						</div>
 					</div>
 				</div>
 
@@ -102,17 +106,21 @@ export default function ProjectsSection() {
 
 	if (error) {
 		return (
-			<section id='projects' className='py-16 bg-white'>
+			<section id='projects' className='py-32 bg-white'>
 				{/* Section Header */}
-				<div className='max-w-7xl mx-auto px-6 lg:px-8 mb-12'>
-					<div className='text-center'>
-						<h2 className='font-heading font-semibold text-4xl lg:text-6xl text-primary mb-4 leading-tight'>
-							Our Projects
-						</h2>
-						<p className='text-muted-foreground text-lg max-w-2xl mx-auto'>
-							Explore our portfolio of architectural excellence and innovative
-							design solutions
-						</p>
+				<div className='max-w-7xl mx-auto px-6 lg:px-8 mb-16'>
+					<div className='text-center space-y-8'>
+						<div>
+							<h2 className='font-heading font-semibold text-4xl lg:text-6xl text-primary mb-4 leading-tight'>
+								Project Portfolio
+							</h2>
+							<div className='w-24 h-1 bg-primary/20 mx-auto mt-6 mb-8'></div>
+							<p className='text-primary/70 text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed'>
+								With over 20 years of design and construction experience,
+								ARTIFEX GROUP has successfully delivered landmark projects
+								across different regions
+							</p>
+						</div>
 					</div>
 				</div>
 
@@ -126,17 +134,21 @@ export default function ProjectsSection() {
 
 	if (projects.length === 0) {
 		return (
-			<section id='projects' className='py-16 bg-white'>
+			<section id='projects' className='py-32 bg-white'>
 				{/* Section Header */}
-				<div className='max-w-7xl mx-auto px-6 lg:px-8 mb-12'>
-					<div className='text-center'>
-						<h2 className='font-heading font-semibold text-4xl lg:text-6xl text-primary mb-4 leading-tight'>
-							Our Projects
-						</h2>
-						<p className='text-muted-foreground text-lg max-w-2xl mx-auto'>
-							Explore our portfolio of architectural excellence and innovative
-							design solutions
-						</p>
+				<div className='max-w-7xl mx-auto px-6 lg:px-8 mb-16'>
+					<div className='text-center space-y-8'>
+						<div>
+							<h2 className='font-heading font-semibold text-4xl lg:text-6xl text-primary mb-4 leading-tight'>
+								Project Portfolio
+							</h2>
+							<div className='w-24 h-1 bg-primary/20 mx-auto mt-6 mb-8'></div>
+							<p className='text-primary/70 text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed'>
+								With over 20 years of design and construction experience,
+								ARTIFEX GROUP has successfully delivered landmark projects
+								across different regions
+							</p>
+						</div>
 					</div>
 				</div>
 
@@ -151,23 +163,61 @@ export default function ProjectsSection() {
 	}
 
 	return (
-		<section id='projects' className='py-16 bg-white'>
+		<section id='projects' className='py-32 bg-white'>
 			{/* Section Header */}
 			<motion.div
-				className='max-w-7xl mx-auto px-6 lg:px-8 mb-12'
+				className='max-w-7xl mx-auto px-6 lg:px-8 mb-16'
 				initial={{ opacity: 0, y: 30 }}
 				whileInView={{ opacity: 1, y: 0 }}
 				viewport={{ once: true }}
 				transition={{ duration: 0.8, ease: 'easeInOut' }}
 			>
-				<div className='text-center'>
-					<h2 className='font-heading font-semibold text-4xl lg:text-6xl text-primary mb-4 leading-tight'>
-						Our Projects
-					</h2>
-					<p className='text-muted-foreground text-lg max-w-2xl mx-auto'>
-						Explore our portfolio of architectural excellence and innovative
-						design solutions
-					</p>
+				<div className='text-center space-y-8'>
+					<div>
+						<h2 className='font-heading font-semibold text-4xl lg:text-6xl text-primary mb-4 leading-tight'>
+							Project Portfolio
+						</h2>
+						<div className='w-24 h-1 bg-primary/20 mx-auto mt-6 mb-8'></div>
+						<p className='text-primary/70 text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed'>
+							With over 20 years of design and construction experience, ARTIFEX
+							GROUP has successfully delivered landmark projects across
+							different regions
+						</p>
+					</div>
+
+					{/* Statistics */}
+					<motion.div
+						initial={{ opacity: 0, y: 20 }}
+						whileInView={{ opacity: 1, y: 0 }}
+						viewport={{ once: true }}
+						transition={{ duration: 0.8, delay: 0.2 }}
+						className='grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto mt-12'
+					>
+						<div className='text-center p-6 bg-muted/30 rounded-xl border border-primary/10'>
+							<div className='text-4xl lg:text-5xl font-heading font-bold text-primary mb-2'>
+								300+
+							</div>
+							<div className='text-sm lg:text-base text-primary/70 font-medium'>
+								Residential Villas
+							</div>
+						</div>
+						<div className='text-center p-6 bg-muted/30 rounded-xl border border-primary/10'>
+							<div className='text-4xl lg:text-5xl font-heading font-bold text-primary mb-2'>
+								10+
+							</div>
+							<div className='text-sm lg:text-base text-primary/70 font-medium'>
+								High-Rise Buildings
+							</div>
+						</div>
+						<div className='text-center p-6 bg-muted/30 rounded-xl border border-primary/10'>
+							<div className='text-4xl lg:text-5xl font-heading font-bold text-primary mb-2'>
+								20+
+							</div>
+							<div className='text-sm lg:text-base text-primary/70 font-medium'>
+								Commercial & Retail Complexes
+							</div>
+						</div>
+					</motion.div>
 				</div>
 			</motion.div>
 

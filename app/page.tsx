@@ -2,6 +2,11 @@
 
 import { useState } from 'react'
 import HeroSection from '@/components/hero-section'
+import { WhoWeAreSection } from '@/components/who-we-are-section'
+import { WhatWeDoSection } from '@/components/what-we-do-section'
+import { PhilosophySection } from '@/components/philosophy-section'
+import { PartnershipsSection } from '@/components/partnerships-section'
+import { LocationSection } from '@/components/location-section'
 import { AboutSection } from '@/components/about-section'
 import ProjectsSection from '@/components/projects-section'
 import NewsSection from '@/components/news-section'
@@ -40,10 +45,15 @@ export default function Home() {
 
 			<Navigation isOpen={isNavigationOpen} onClose={closeNavigation} />
 			<HeroSection />
+			<WhoWeAreSection />
+			<WhatWeDoSection />
+			<PhilosophySection />
+			<PartnershipsSection />
 			<AboutSection />
 			<ProjectsSection />
 			<NewsSection />
 			<CTASection />
+			<LocationSection />
 			<Footer />
 		</main>
 	)

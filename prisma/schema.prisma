@@ -125,6 +125,22 @@ model HeroImage {
   @@index([order])
 }
 
+model WhoWeAreImage {
+  id        String   @id @default(cuid())
+  url       String
+  s3Key     String? // S3 object key for deletion
+  fileName  String
+  fileSize  Int?
+  mimeType  String?
+  order     Int      @default(0)
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([active])
+  @@index([order])
+}
+
 model News {
   id          String      @id @default(cuid())
   title       String

@@ -131,43 +131,7 @@ export default function HeroSection() {
 	]
 
 	const [heroImages, setHeroImages] = useState<HeroImage[]>(staticHeroImages)
-	const [loading, setLoading] = useState(true)
-	const [imagesLoaded, setImagesLoaded] = useState(false)
 	const [currentImageIndex, setCurrentImageIndex] = useState(0)
-
-	// Preload images function
-	const preloadImages = (images: HeroImage[]) => {
-		if (images.length === 0) {
-			setImagesLoaded(true)
-			return
-		}
-
-		let loadedCount = 0
-		const totalImages = images.length
-
-		images.forEach(image => {
-			const img = new Image()
-			img.onload = () => {
-				loadedCount++
-				if (loadedCount === totalImages) {
-					setImagesLoaded(true)
-				}
-			}
-			img.onerror = () => {
-				loadedCount++
-				if (loadedCount === totalImages) {
-					setImagesLoaded(true)
-				}
-			}
-			img.src = image.url
-		})
-	}
-
-	useEffect(() => {
-		// Use static images instead of fetching from API
-		preloadImages(staticHeroImages)
-		setLoading(false)
-	}, [])
 
 	// Auto slide effect
 	useEffect(() => {
@@ -225,7 +189,7 @@ export default function HeroSection() {
 		>
 			{/* Background Image Carousel */}
 			<div className='absolute inset-0 z-0'>
-				{!loading && imagesLoaded && staticHeroImages.length > 0 && (
+				{staticHeroImages.length > 0 && (
 					<div className='relative w-full h-full'>
 						{staticHeroImages.map((image, index) => (
 							<motion.div
@@ -260,196 +224,64 @@ export default function HeroSection() {
 						))}
 					</div>
 				)}
-
-				{/* Fallback background if no images or still loading */}
-				{(loading || !imagesLoaded) && (
-					<div className='absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-black' />
-				)}
 			</div>
 
 			{/* Content */}
 			<div className='relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full'>
 				<div className='flex items-center justify-center min-h-screen py-20 sm:py-0'>
-					{loading || !imagesLoaded ? (
-						/* Enhanced Loading State - ARTIFEX GROUP Style */
-						<div className='text-center relative'>
-							{/* Subtle background effect */}
-							<div className='absolute inset-0 overflow-hidden pointer-events-none'>
-								<motion.div
-									className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 sm:w-96 h-64 sm:h-96 border border-white/5 rounded-full'
-									animate={{
-										scale: [1, 1.1, 1],
-										opacity: [0.3, 0.1, 0.3],
-									}}
-									transition={{
-										duration: 4,
-										repeat: Infinity,
-										ease: 'easeInOut',
-									}}
-								/>
-							</div>
-
-							{/* Main loading animation */}
-							<div className='relative z-10'>
-								{/* Minimalistic Loading Animation */}
-								<div className='relative mb-6 sm:mb-8'>
-									{/* Main rotating element */}
-									<motion.div
-										className='relative w-16 sm:w-20 h-16 sm:h-20 mx-auto'
-										animate={{ rotate: 360 }}
-										transition={{
-											duration: 3,
-											repeat: Infinity,
-											ease: 'linear',
-										}}
+					{/* Main Content */}
+					<motion.div
+						className='w-full max-w-4xl text-center px-4'
+						initial={{ opacity: 0, y: 30 }}
+						animate={{ opacity: 1, y: 0 }}
+						transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
+					>
+						<div className='geometric-accent mb-6 sm:mb-8 relative'>
+							<motion.h1
+								className='font-heading font-bold text-4xl sm:text-7xl lg:text-9xl text-white leading-[0.85] tracking-tighter relative z-10 drop-shadow-2xl'
+								variants={titleVariants}
+								initial='hidden'
+								animate='visible'
+							>
+								{'ARTIFEX'.split('').map((letter, index) => (
+									<motion.span
+										key={index}
+										variants={letterVariants}
+										className='inline-block'
 									>
-										{/* Outer ring */}
-										<div className='absolute inset-0 border-2 border-white/15 rounded-full'></div>
-										{/* Active segment */}
-										<div className='absolute inset-0 border-2 border-transparent border-t-white rounded-full'></div>
-									</motion.div>
-
-									{/* Simple center dot */}
-									<motion.div
-										className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-white/80 rounded-full'
-										animate={{
-											scale: [1, 1.3, 1],
-											opacity: [0.8, 1, 0.8],
-										}}
-										transition={{
-											duration: 2,
-											repeat: Infinity,
-											ease: 'easeInOut',
-										}}
-									/>
-								</div>
-
-								{/* Brand-styled loading text */}
-								<motion.div
-									className='space-y-4 sm:space-y-6'
-									initial={{ opacity: 0, y: 20 }}
-									animate={{ opacity: 1, y: 0 }}
-									transition={{ duration: 0.8, delay: 0.5 }}
-								>
-									<div className='space-y-2'>
-										<motion.h2
-											className='font-heading font-bold text-2xl sm:text-4xl text-white tracking-[0.2em]'
-											animate={{
-												textShadow: [
-													'0 0 20px rgba(255,255,255,0.3)',
-													'0 0 30px rgba(255,255,255,0.5)',
-													'0 0 20px rgba(255,255,255,0.3)',
-												],
-											}}
-											transition={{
-												duration: 2,
-												repeat: Infinity,
-												ease: 'easeInOut',
-											}}
-										>
-											ARTIFEX
-										</motion.h2>
-										<motion.h3
-											className='font-heading font-light text-lg sm:text-2xl text-white/80 tracking-[0.3em]'
-											animate={{ opacity: [0.6, 1, 0.6] }}
-											transition={{
-												duration: 2.5,
-												repeat: Infinity,
-												ease: 'easeInOut',
-												delay: 0.5,
-											}}
-										>
-											GROUP
-										</motion.h3>
-									</div>
-
-									<motion.p
-										className='text-white/70 text-xs sm:text-sm font-light tracking-widest uppercase'
-										animate={{ opacity: [0.5, 1, 0.5] }}
-										transition={{
-											duration: 2,
-											repeat: Infinity,
-											ease: 'easeInOut',
-										}}
-									>
-										{loading ? 'LOADING PORTFOLIO' : 'PREPARING EXPERIENCE'}
-									</motion.p>
-
-									{/* Elegant progress indicator */}
-									<div className='relative w-48 sm:w-64 h-0.5 mx-auto'>
-										<div className='absolute inset-0 bg-white/10 rounded-full'></div>
-										<motion.div
-											className='absolute top-0 left-0 h-full bg-gradient-to-r from-white/40 via-white to-white/40 rounded-full'
-											initial={{ width: '0%' }}
-											animate={{
-												width: ['20%', '80%', '20%'],
-												x: ['-10%', '30%', '-10%'],
-											}}
-											transition={{
-												duration: 3,
-												repeat: Infinity,
-												ease: 'easeInOut',
-											}}
-										/>
-									</div>
-								</motion.div>
-							</div>
-						</div>
-					) : (
-						/* Main Content - only show after loading */
-						<motion.div
-							className='w-full max-w-4xl text-center px-4'
-							initial={{ opacity: 0, y: 30 }}
-							animate={{ opacity: 1, y: 0 }}
-							transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
-						>
-							<div className='geometric-accent mb-6 sm:mb-8 relative'>
-								<motion.h1
-									className='font-heading font-bold text-4xl sm:text-7xl lg:text-9xl text-white leading-[0.85] tracking-tighter relative z-10 drop-shadow-2xl'
-									variants={titleVariants}
-									initial='hidden'
-									animate='visible'
-								>
-									{'ARTIFEX'.split('').map((letter, index) => (
+										{letter}
+									</motion.span>
+								))}
+								<br />
+								<span className='text-white/80 font-light'>
+									{'GROUP'.split('').map((letter, index) => (
 										<motion.span
-											key={index}
+											key={index + 7}
 											variants={letterVariants}
 											className='inline-block'
 										>
 											{letter}
 										</motion.span>
 									))}
-									<br />
-									<span className='text-white/80 font-light'>
-										{'GROUP'.split('').map((letter, index) => (
-											<motion.span
-												key={index + 7}
-												variants={letterVariants}
-												className='inline-block'
-											>
-												{letter}
-											</motion.span>
-										))}
-									</span>
-								</motion.h1>
-							</div>
+								</span>
+							</motion.h1>
+						</div>
 
-							{/* Statistics Section */}
-							<motion.div
-								className='flex items-center justify-center mt-8 sm:mt-12'
-								variants={subtitleVariants}
-								initial='hidden'
-								animate='visible'
-							>
-								<StatisticsSection />
-							</motion.div>
+						{/* Statistics Section */}
+						<motion.div
+							className='flex items-center justify-center mt-8 sm:mt-12'
+							variants={subtitleVariants}
+							initial='hidden'
+							animate='visible'
+						>
+							<StatisticsSection />
 						</motion.div>
-					)}
+					</motion.div>
 				</div>
 			</div>
 
 			{/* Carousel Dots */}
-			{!loading && imagesLoaded && staticHeroImages.length > 0 && (
+			{staticHeroImages.length > 0 && (
 				<motion.div
 					className='absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 z-20'
 					initial={{ opacity: 0, y: 20 }}

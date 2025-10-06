@@ -33,6 +33,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { Switch } from '@/components/ui/switch'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { ImageUpload, UploadedImage } from '@/components/image-upload'
+import WhoWeAreImageUpload from '@/components/admin/who-we-are-image-upload'
 import RichTextEditor from '@/components/rich-text-editor'
 import {
 	Plus,
@@ -136,6 +137,7 @@ export default function AdminDashboard() {
 		name: '',
 		description: '',
 	})
+	const [whoWeAreImages, setWhoWeAreImages] = useState<any[]>([])
 
 	useEffect(() => {
 		if (status === 'loading') return
@@ -148,11 +150,13 @@ export default function AdminDashboard() {
 
 	const fetchData = async () => {
 		try {
-			const [projectsRes, categoriesRes, newsRes] = await Promise.all([
-				fetch('/api/projects'),
-				fetch('/api/categories'),
-				fetch('/api/news?all=true'),
-			])
+			const [projectsRes, categoriesRes, newsRes, whoWeAreRes] =
+				await Promise.all([
+					fetch('/api/projects'),
+					fetch('/api/categories'),
+					fetch('/api/news?all=true'),
+					fetch('/api/who-we-are-images'),
+				])
 
 			if (projectsRes.ok) {
 				const projectsData = await projectsRes.json()
@@ -167,6 +171,11 @@ export default function AdminDashboard() {
 			if (newsRes.ok) {
 				const newsData = await newsRes.json()
 				setNews(newsData)
+			}
+
+			if (whoWeAreRes.ok) {
+				const whoWeAreData = await whoWeAreRes.json()
+				setWhoWeAreImages(whoWeAreData)
 			}
 		} catch (error) {
 			console.error('Error fetching data:', error)
@@ -322,6 +331,35 @@ export default function AdminDashboard() {
 			}
 		} catch (error) {
 			console.error('Error deleting news:', error)
+		}
+	}
+
+	// Who We Are Image Handlers
+	const handleWhoWeAreImageUploadSuccess = () => {
+		fetchData() // Refresh the images list
+	}
+
+	const handleWhoWeAreImageUploadError = (error: string) => {
+		console.error('Upload error:', error)
+		alert(`Upload failed: ${error}`)
+	}
+
+	const handleDeleteWhoWeAreImage = async (id: string) => {
+		if (!confirm('Are you sure you want to delete this image?')) return
+
+		try {
+			const response = await fetch(`/api/who-we-are-images/${id}`, {
+				method: 'DELETE',
+			})
+
+			if (response.ok) {
+				fetchData() // Refresh the images list
+			} else {
+				alert('Failed to delete image')
+			}
+		} catch (error) {
+			console.error('Error deleting image:', error)
+			alert('Error deleting image')
 		}
 	}
 
@@ -545,6 +583,13 @@ export default function AdminDashboard() {
 						<TabsTrigger value='news' className='flex items-center space-x-2'>
 							<FileText className='h-4 w-4' />
 							<span>News</span>
+						</TabsTrigger>
+						<TabsTrigger
+							value='who-we-are'
+							className='flex items-center space-x-2'
+						>
+							<Images className='h-4 w-4' />
+							<span>Who We Are</span>
 						</TabsTrigger>
 					</TabsList>
 
@@ -829,6 +874,80 @@ export default function AdminDashboard() {
 										</TableBody>
 									</Table>
 								)}
+							</CardContent>
+						</Card>
+					</TabsContent>
+
+					{/* Who We Are Images Tab */}
+					<TabsContent value='who-we-are'>
+						<Card>
+							<CardHeader>
+								<div className='flex justify-between items-center'>
+									<CardTitle>Who We Are Images</CardTitle>
+									<p className='text-sm text-muted-foreground'>
+										Manage images for the Who We Are section
+									</p>
+								</div>
+							</CardHeader>
+							<CardContent className='space-y-6'>
+								{/* Upload Component */}
+								<div>
+									<h3 className='text-lg font-semibold mb-4'>
+										Upload New Image
+									</h3>
+									<WhoWeAreImageUpload
+										onUploadSuccess={handleWhoWeAreImageUploadSuccess}
+										onUploadError={handleWhoWeAreImageUploadError}
+									/>
+								</div>
+
+								{/* Images Grid */}
+								<div>
+									<h3 className='text-lg font-semibold mb-4'>
+										Current Images ({whoWeAreImages.length})
+									</h3>
+									{whoWeAreImages.length === 0 ? (
+										<p className='text-muted-foreground text-center py-8'>
+											No images uploaded yet. Upload your first image above.
+										</p>
+									) : (
+										<div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
+											{whoWeAreImages.map(image => (
+												<motion.div
+													key={image.id}
+													initial={{ opacity: 0, scale: 0.9 }}
+													animate={{ opacity: 1, scale: 1 }}
+													className='relative group aspect-square rounded-lg overflow-hidden border border-gray-200 shadow-sm'
+												>
+													<img
+														src={image.url}
+														alt={image.fileName}
+														className='w-full h-full object-cover'
+													/>
+													<div className='absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center'>
+														<Button
+															variant='destructive'
+															size='sm'
+															onClick={() =>
+																handleDeleteWhoWeAreImage(image.id)
+															}
+															className='opacity-0 group-hover:opacity-100 transition-opacity duration-300'
+														>
+															<Trash2 className='h-4 w-4 mr-2' />
+															Delete
+														</Button>
+													</div>
+													<div className='absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 text-white text-xs p-2'>
+														<p className='truncate'>{image.fileName}</p>
+														<p className='text-gray-300'>
+															Order: {image.order}
+														</p>
+													</div>
+												</motion.div>
+											))}
+										</div>
+									)}
+								</div>
 							</CardContent>
 						</Card>
 					</TabsContent>

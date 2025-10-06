@@ -31,8 +31,8 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Switch } from '@/components/ui/switch'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { ImageUpload, UploadedImage } from '@/components/image-upload'
+import WhoWeAreImageUpload from '@/components/admin/who-we-are-image-upload'
 import {
 	Plus,
 	Edit,
@@ -43,6 +43,7 @@ import {
 	Eye,
 	Tag,
 	FileText,
+	Images,
 } from 'lucide-react'
 import { motion } from 'framer-motion'
 
@@ -102,13 +103,24 @@ interface News {
 	createdAt: string
 }
 
+interface WhoWeAreImage {
+	id: string
+	url: string
+	fileName: string
+	order: number
+	active: boolean
+	createdAt: string
+}
+
 export default function AdminDashboard() {
 	const { data: session, status } = useSession()
 	const router = useRouter()
 	const [projects, setProjects] = useState<Project[]>([])
 	const [categories, setCategories] = useState<Category[]>([])
 	const [news, setNews] = useState<News[]>([])
+	const [whoWeAreImages, setWhoWeAreImages] = useState<WhoWeAreImage[]>([])
 	const [loading, setLoading] = useState(true)
+	const [activeTab, setActiveTab] = useState('projects')
 	const [showProjectDialog, setShowProjectDialog] = useState(false)
 	const [showCategoryDialog, setShowCategoryDialog] = useState(false)
 	const [showNewsDialog, setShowNewsDialog] = useState(false)
@@ -149,16 +161,19 @@ export default function AdminDashboard() {
 		setLoading(true)
 		try {
 			console.log('Fetching data from APIs...')
-			const [projectsRes, categoriesRes, newsRes] = await Promise.all([
-				fetch('/api/projects'),
-				fetch('/api/categories'),
-				fetch('/api/news?all=true'),
-			])
+			const [projectsRes, categoriesRes, newsRes, whoWeAreImagesRes] =
+				await Promise.all([
+					fetch('/api/projects'),
+					fetch('/api/categories'),
+					fetch('/api/news?all=true'),
+					fetch('/api/who-we-are-images?all=true'),
+				])
 
 			console.log('API responses:', {
 				projects: projectsRes.status,
 				categories: categoriesRes.status,
 				news: newsRes.status,
+				whoWeAreImages: whoWeAreImagesRes.status,
 			})
 
 			if (projectsRes.ok) {
@@ -183,6 +198,14 @@ export default function AdminDashboard() {
 				setNews(newsData)
 			} else {
 				console.error('News API failed:', newsRes.status)
+			}
+
+			if (whoWeAreImagesRes.ok) {
+				const whoWeAreImagesData = await whoWeAreImagesRes.json()
+				console.log('Who We Are Images data:', whoWeAreImagesData)
+				setWhoWeAreImages(whoWeAreImagesData)
+			} else {
+				console.error('Who We Are Images API failed:', whoWeAreImagesRes.status)
 			}
 		} catch (error) {
 			console.error('Error fetching data:', error)
@@ -286,6 +309,32 @@ export default function AdminDashboard() {
 		} catch (error) {
 			console.error('Error deleting project:', error)
 		}
+	}
+
+	const handleDeleteWhoWeAreImage = async (id: string) => {
+		if (!confirm('Are you sure you want to delete this image?')) return
+
+		try {
+			const response = await fetch(`/api/who-we-are-images/${id}`, {
+				method: 'DELETE',
+			})
+
+			if (response.ok) {
+				fetchData()
+			}
+		} catch (error) {
+			console.error('Error deleting who we are image:', error)
+		}
+	}
+
+	const handleWhoWeAreImageUploadSuccess = (image: WhoWeAreImage) => {
+		console.log('Image uploaded successfully:', image)
+		fetchData()
+	}
+
+	const handleWhoWeAreImageUploadError = (error: string) => {
+		console.error('Image upload error:', error)
+		alert(`Upload failed: ${error}`)
 	}
 
 	const openEditProjectDialog = (project: Project) => {
@@ -565,31 +614,57 @@ export default function AdminDashboard() {
 					</motion.div>
 				</div>
 
-				{/* Tabs */}
-				<Tabs defaultValue='projects' className='space-y-6'>
-					<TabsList>
-						<TabsTrigger
-							value='projects'
-							className='flex items-center space-x-2'
-						>
-							<FolderOpen className='h-4 w-4' />
-							<span>Projects</span>
-						</TabsTrigger>
-						<TabsTrigger
-							value='categories'
-							className='flex items-center space-x-2'
-						>
-							<Tag className='h-4 w-4' />
-							<span>Categories</span>
-						</TabsTrigger>
-						<TabsTrigger value='news' className='flex items-center space-x-2'>
-							<FileText className='h-4 w-4' />
-							<span>News</span>
-						</TabsTrigger>
-					</TabsList>
+				{/* Custom Tabs */}
+				<div className='space-y-6'>
+					{/* Tab Buttons - SIMPLIFIED */}
+					<div className='bg-gray-100 p-6 rounded-lg'>
+						<h2 className='text-lg font-bold mb-4'>Navigation Tabs</h2>
+						<div className='flex flex-col sm:flex-row gap-4'>
+							<button
+								onClick={() => setActiveTab('projects')}
+								className={`px-6 py-4 rounded-lg font-bold text-lg ${
+									activeTab === 'projects'
+										? 'bg-green-600 text-white'
+										: 'bg-white text-gray-800 border-2 border-gray-300'
+								}`}
+							>
+								📁 PROJECTS
+							</button>
+							<button
+								onClick={() => setActiveTab('categories')}
+								className={`px-6 py-4 rounded-lg font-bold text-lg ${
+									activeTab === 'categories'
+										? 'bg-green-600 text-white'
+										: 'bg-white text-gray-800 border-2 border-gray-300'
+								}`}
+							>
+								🏷️ CATEGORIES
+							</button>
+							<button
+								onClick={() => setActiveTab('news')}
+								className={`px-6 py-4 rounded-lg font-bold text-lg ${
+									activeTab === 'news'
+										? 'bg-green-600 text-white'
+										: 'bg-white text-gray-800 border-2 border-gray-300'
+								}`}
+							>
+								📰 NEWS
+							</button>
+							<button
+								onClick={() => setActiveTab('who-we-are')}
+								className={`px-6 py-4 rounded-lg font-bold text-lg ${
+									activeTab === 'who-we-are'
+										? 'bg-red-600 text-white'
+										: 'bg-yellow-400 text-black border-4 border-red-600'
+								}`}
+							>
+								👥 WHO WE ARE
+							</button>
+						</div>
+					</div>
 
 					{/* Projects Tab */}
-					<TabsContent value='projects'>
+					{activeTab === 'projects' && (
 						<Card>
 							<CardHeader>
 								<div className='flex justify-between items-center'>
@@ -705,10 +780,10 @@ export default function AdminDashboard() {
 								)}
 							</CardContent>
 						</Card>
-					</TabsContent>
+					)}
 
 					{/* Categories Tab */}
-					<TabsContent value='categories'>
+					{activeTab === 'categories' && (
 						<Card>
 							<CardHeader>
 								<div className='flex justify-between items-center'>
@@ -756,10 +831,10 @@ export default function AdminDashboard() {
 								)}
 							</CardContent>
 						</Card>
-					</TabsContent>
+					)}
 
 					{/* News Tab */}
-					<TabsContent value='news'>
+					{activeTab === 'news' && (
 						<Card>
 							<CardHeader>
 								<div className='flex justify-between items-center'>
@@ -853,8 +928,82 @@ export default function AdminDashboard() {
 								)}
 							</CardContent>
 						</Card>
-					</TabsContent>
-				</Tabs>
+					)}
+
+					{/* Who We Are Images Tab */}
+					{activeTab === 'who-we-are' && (
+						<Card>
+							<CardHeader>
+								<div className='flex justify-between items-center'>
+									<CardTitle>Who We Are Images</CardTitle>
+									<p className='text-sm text-muted-foreground'>
+										Manage images for the Who We Are section
+									</p>
+								</div>
+							</CardHeader>
+							<CardContent className='space-y-6'>
+								{/* Upload Component */}
+								<div>
+									<h3 className='text-lg font-semibold mb-4'>
+										Upload New Image
+									</h3>
+									<WhoWeAreImageUpload
+										onUploadSuccess={handleWhoWeAreImageUploadSuccess}
+										onUploadError={handleWhoWeAreImageUploadError}
+									/>
+								</div>
+
+								{/* Images Grid */}
+								<div>
+									<h3 className='text-lg font-semibold mb-4'>
+										Current Images ({whoWeAreImages.length})
+									</h3>
+									{whoWeAreImages.length === 0 ? (
+										<p className='text-muted-foreground text-center py-8'>
+											No images uploaded yet. Upload your first image above.
+										</p>
+									) : (
+										<div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
+											{whoWeAreImages.map(image => (
+												<motion.div
+													key={image.id}
+													initial={{ opacity: 0, scale: 0.9 }}
+													animate={{ opacity: 1, scale: 1 }}
+													className='relative group aspect-square rounded-lg overflow-hidden border border-gray-200 shadow-sm'
+												>
+													<img
+														src={image.url}
+														alt={image.fileName}
+														className='w-full h-full object-cover'
+													/>
+													<div className='absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center'>
+														<Button
+															variant='destructive'
+															size='sm'
+															onClick={() =>
+																handleDeleteWhoWeAreImage(image.id)
+															}
+															className='opacity-0 group-hover:opacity-100 transition-opacity duration-300'
+														>
+															<Trash2 className='h-4 w-4 mr-2' />
+															Delete
+														</Button>
+													</div>
+													<div className='absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 text-white text-xs p-2'>
+														<p className='truncate'>{image.fileName}</p>
+														<p className='text-gray-300'>
+															Order: {image.order}
+														</p>
+													</div>
+												</motion.div>
+											))}
+										</div>
+									)}
+								</div>
+							</CardContent>
+						</Card>
+					)}
+				</div>
 			</main>
 
 			{/* Project Dialog */}
