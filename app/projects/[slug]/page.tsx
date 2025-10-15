@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 import { ArrowLeft } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
@@ -158,10 +159,13 @@ export default function MinimalProjectDetailPage() {
 							transition={{ duration: 1, delay: 0.5 }}
 						>
 							<div className='relative w-full h-full overflow-hidden rounded-2xl bg-black/5 border border-black/10 shadow-xl group'>
-								<img
+								<Image
 									src={allImages[0].url}
 									alt={allImages[0].caption || 'Main project image'}
-									className='w-full h-full object-cover transition-transform duration-500 group-hover:scale-105'
+									fill
+									sizes='(max-width: 640px) 100vw, (max-width: 1024px) 750px, 800px'
+									className='object-cover transition-transform duration-500 group-hover:scale-105'
+									priority
 								/>
 								<div className='absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent'></div>
 								{/* Hover Overlay */}
@@ -352,10 +356,12 @@ function CleanImageCard({ image, index, total }: CleanImageCardProps) {
 				{/* Subtle Border Effect */}
 				<div className='absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-black/10 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-1000'></div>
 
-				<img
+				<Image
 					src={image.url}
 					alt={image.caption || `Image ${index + 1}`}
-					className={`w-full h-full object-cover rounded-2xl transition-all duration-1000 hover:scale-105 ${
+					fill
+					sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+					className={`object-cover rounded-2xl transition-all duration-1000 hover:scale-105 ${
 						imageLoaded ? 'opacity-100' : 'opacity-0'
 					}`}
 					onLoad={() => setImageLoaded(true)}
@@ -455,10 +461,12 @@ function ScatteredImageCard({ image, index, total }: ScatteredImageCardProps) {
 			<div
 				className={`relative overflow-hidden rounded-2xl ${size} bg-black/5 border border-black/10`}
 			>
-				<img
+				<Image
 					src={image.url}
 					alt={image.caption || `Image ${index + 2}`}
-					className={`w-full h-full object-cover rounded-2xl transition-all duration-1000 hover:scale-105 ${
+					fill
+					sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+					className={`object-cover rounded-2xl transition-all duration-1000 hover:scale-105 ${
 						imageLoaded ? 'opacity-100' : 'opacity-0'
 					}`}
 					onLoad={() => setImageLoaded(true)}
@@ -543,10 +551,12 @@ function GridImageCard({
 		>
 			{/* Image Container */}
 			<div className='relative overflow-hidden h-full bg-black/5'>
-				<img
+				<Image
 					src={image.url}
 					alt={image.caption || `Image ${index + 2}`}
-					className={`w-full h-full object-cover transition-all duration-1000 hover:scale-105 ${
+					fill
+					sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+					className={`object-cover transition-all duration-1000 hover:scale-105 ${
 						imageLoaded ? 'opacity-100' : 'opacity-0'
 					}`}
 					onLoad={() => setImageLoaded(true)}

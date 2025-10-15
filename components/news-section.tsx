@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 
@@ -214,11 +215,13 @@ export default function NewsSection() {
 									onClick={() => handleNewsClick(article.slug)}
 								>
 									{/* Image */}
-									<div className='aspect-[16/10] overflow-hidden'>
-										<img
+									<div className='aspect-[16/10] overflow-hidden relative'>
+										<Image
 											src={firstImage}
 											alt={article.title}
-											className='w-full h-full object-cover group-hover:scale-105 transition-transform duration-500'
+											fill
+											sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+											className='object-cover group-hover:scale-105 transition-transform duration-500'
 										/>
 									</div>
 

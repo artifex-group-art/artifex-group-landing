@@ -115,10 +115,10 @@ export function WhatWeDoSection() {
 										whileInView={{ opacity: 1, y: 0 }}
 										transition={{ duration: 0.5, delay: index * 0.05 }}
 										viewport={{ once: true }}
-										className='group p-6 bg-muted/30 hover:bg-muted/50 rounded-xl border border-primary/10 hover:border-primary/20 transition-all duration-300 hover:shadow-lg'
+										className='group p-6 bg-gradient-to-br from-green-50 to-green-100/50 dark:from-green-950/20 dark:to-green-900/10 hover:from-green-100 hover:to-green-200/50 dark:hover:from-green-900/30 dark:hover:to-green-800/20 rounded-xl border border-green-200/50 hover:border-green-300/70 transition-all duration-300 hover:shadow-lg'
 									>
 										<div className='flex flex-col items-center text-center space-y-4'>
-											<div className='p-3 bg-primary/5 rounded-lg group-hover:bg-primary/10 transition-colors duration-300'>
+											<div className='p-3 bg-green-100/50 dark:bg-green-900/30 rounded-lg group-hover:bg-green-200/70 dark:group-hover:bg-green-800/40 transition-colors duration-300'>
 												<Icon className='w-8 h-8 text-primary' />
 											</div>
 											<h4 className='font-heading font-semibold text-base text-primary'>

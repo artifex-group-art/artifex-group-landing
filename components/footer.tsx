@@ -44,7 +44,7 @@ export function Footer() {
 						</div>
 
 						<p className='font-body text-sm text-white/60'>
-							© 2024 ARTIFEX GROUP
+							© {new Date().getFullYear()} ARTIFEX GROUP
 						</p>
 					</div>
 				</motion.div>

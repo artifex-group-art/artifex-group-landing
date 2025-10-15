@@ -2,6 +2,7 @@
 
 import { motion, useAnimation, useInView } from 'framer-motion'
 import { useEffect, useState, useRef } from 'react'
+import Image from 'next/image'
 
 interface HeroImage {
 	id: string
@@ -48,51 +49,106 @@ const StatisticsSection = () => {
 	const clients = useAnimatedNumber(10)
 
 	return (
-		<div className='flex flex-col sm:flex-row gap-4 sm:gap-6 md:gap-12 items-center justify-center'>
-			{/* Years of Experience */}
-			<div className='text-center group'>
-				<div className='text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2 sm:mb-3 transition-all duration-300 group-hover:scale-110'>
-					<span ref={experience.ref} className='drop-shadow-2xl'>
-						{experience.count}
-					</span>
-					<span className='text-white/80'>+</span>
+		<div className='flex flex-col lg:flex-row gap-8 lg:gap-16 items-center justify-center'>
+			{/* Stats Numbers - Left Side */}
+			<div className='flex flex-col sm:flex-row gap-4 sm:gap-6 md:gap-12 items-center justify-center'>
+				{/* Years of Experience */}
+				<div className='text-center group'>
+					<div className='text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2 sm:mb-3 transition-all duration-300 group-hover:scale-110'>
+						<span ref={experience.ref} className='drop-shadow-2xl'>
+							{experience.count}
+						</span>
+						<span className='text-white/80'>+</span>
+					</div>
+					<div className='text-xs sm:text-sm md:text-base text-white/80 font-light tracking-[0.2em] uppercase'>
+						Years Experience
+					</div>
 				</div>
-				<div className='text-xs sm:text-sm md:text-base text-white/80 font-light tracking-[0.2em] uppercase'>
-					Years Experience
+
+				{/* Separator Line */}
+				<div className='hidden sm:block w-px h-12 md:h-16 bg-white/30'></div>
+
+				{/* Completed Projects */}
+				<div className='text-center group'>
+					<div className='text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2 sm:mb-3 transition-all duration-300 group-hover:scale-110'>
+						<span ref={projects.ref} className='drop-shadow-2xl'>
+							{projects.count}
+						</span>
+						<span className='text-white/80'>+</span>
+					</div>
+					<div className='text-xs sm:text-sm md:text-base text-white/80 font-light tracking-[0.2em] uppercase'>
+						Projects
+					</div>
+				</div>
+
+				{/* Separator Line */}
+				<div className='hidden sm:block w-px h-12 md:h-16 bg-white/30'></div>
+
+				{/* Constant Clients */}
+				<div className='text-center group'>
+					<div className='text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2 sm:mb-3 transition-all duration-300 group-hover:scale-110'>
+						<span ref={clients.ref} className='drop-shadow-2xl'>
+							{clients.count}
+						</span>
+						<span className='text-white/80'>+</span>
+					</div>
+					<div className='text-xs sm:text-sm md:text-base text-white/80 font-light tracking-[0.2em] uppercase'>
+						Constant Clients
+					</div>
 				</div>
 			</div>
 
-			{/* Separator Line */}
-			<div className='hidden sm:block w-px h-12 md:h-16 bg-white/30'></div>
+			{/* Vertical Separator - Desktop only */}
+			<div className='hidden lg:block w-px h-24 bg-white/30'></div>
 
-			{/* Completed Projects */}
-			<div className='text-center group'>
-				<div className='text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2 sm:mb-3 transition-all duration-300 group-hover:scale-110'>
-					<span ref={projects.ref} className='drop-shadow-2xl'>
-						{projects.count}
-					</span>
-					<span className='text-white/80'>+</span>
-				</div>
-				<div className='text-xs sm:text-sm md:text-base text-white/80 font-light tracking-[0.2em] uppercase'>
-					Projects
-				</div>
-			</div>
+			{/* Partner Logos Section - Right Side */}
+			<motion.div
+				initial={{ opacity: 0, x: 20 }}
+				animate={{ opacity: 1, x: 0 }}
+				transition={{ duration: 0.8, delay: 2.5 }}
+				className='flex flex-col items-center gap-4'
+			>
+				<p className='text-xs sm:text-sm text-white/60 font-light tracking-[0.3em] uppercase'>
+					Our Partners
+				</p>
+				<div className='flex items-center justify-center gap-6 sm:gap-8'>
+					{/* Alutech Logo */}
+					<motion.div
+						whileHover={{ scale: 1.05 }}
+						transition={{ duration: 0.3 }}
+						className='relative w-24 h-16 sm:w-28 sm:h-18 group'
+					>
+						<div className='absolute inset-0 bg-white/10 backdrop-blur-sm rounded-lg transition-all duration-300 group-hover:bg-white/20' />
+						<div className='relative w-full h-full p-3 sm:p-4 flex items-center justify-center'>
+							<Image
+								src='/alutech.png'
+								alt='Alutech'
+								fill
+								className='object-contain filter brightness-0 invert opacity-80 group-hover:opacity-100 transition-opacity duration-300'
+								sizes='(max-width: 640px) 96px, 112px'
+							/>
+						</div>
+					</motion.div>
 
-			{/* Separator Line */}
-			<div className='hidden sm:block w-px h-12 md:h-16 bg-white/30'></div>
-
-			{/* Constant Clients */}
-			<div className='text-center group'>
-				<div className='text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2 sm:mb-3 transition-all duration-300 group-hover:scale-110'>
-					<span ref={clients.ref} className='drop-shadow-2xl'>
-						{clients.count}
-					</span>
-					<span className='text-white/80'>+</span>
+					{/* Uzbek Foods Logo */}
+					<motion.div
+						whileHover={{ scale: 1.05 }}
+						transition={{ duration: 0.3 }}
+						className='relative w-24 h-16 sm:w-28 sm:h-18 group'
+					>
+						<div className='absolute inset-0 bg-white/10 backdrop-blur-sm rounded-lg transition-all duration-300 group-hover:bg-white/20' />
+						<div className='relative w-full h-full p-3 sm:p-4 flex items-center justify-center'>
+							<Image
+								src='/uzbek-foods.png'
+								alt='Uzbek Foods'
+								fill
+								className='object-contain filter brightness-0 invert opacity-80 group-hover:opacity-100 transition-opacity duration-300'
+								sizes='(max-width: 640px) 96px, 112px'
+							/>
+						</div>
+					</motion.div>
 				</div>
-				<div className='text-xs sm:text-sm md:text-base text-white/80 font-light tracking-[0.2em] uppercase'>
-					Constant Clients
-				</div>
-			</div>
+			</motion.div>
 		</div>
 	)
 }
@@ -213,10 +269,13 @@ export default function HeroSection() {
 									ease: [0.25, 0.46, 0.45, 0.94],
 								}}
 							>
-								<img
+								<Image
 									src={image.url}
 									alt={image.fileName}
-									className='w-full h-full object-cover'
+									fill
+									sizes='100vw'
+									className='object-cover'
+									priority={index === 0}
 								/>
 								{/* Dark overlay for text readability */}
 								<div className='absolute inset-0 bg-black/50' />

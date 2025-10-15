@@ -54,7 +54,7 @@ const Navigation = ({ isOpen, onClose }: NavigationProps) => {
 							ease: 'easeInOut',
 							duration: 0.4,
 						}}
-						className='fixed top-0 right-0 h-full w-full sm:w-80 max-w-sm bg-white shadow-2xl z-50 flex flex-col'
+						className='fixed top-0 right-0 h-full w-full sm:w-80 max-w-sm bg-white shadow-2xl z-50 flex flex-col overflow-y-auto'
 					>
 						{/* Header */}
 						<div className='flex items-center justify-between p-4 sm:p-6 border-b border-gray-100'>
@@ -71,8 +71,8 @@ const Navigation = ({ isOpen, onClose }: NavigationProps) => {
 						</div>
 
 						{/* Navigation Links */}
-						<div className='flex-1 p-4 sm:p-6'>
-							<nav className='space-y-6 sm:space-y-8'>
+						<div className='flex-1 p-4 sm:p-6 overflow-y-auto'>
+							<nav className='space-y-4 sm:space-y-5'>
 								{navigationItems.map((item, index) => (
 									<motion.div
 										key={item.id}
@@ -85,7 +85,7 @@ const Navigation = ({ isOpen, onClose }: NavigationProps) => {
 									>
 										<button
 											onClick={() => scrollToSection(item.id)}
-											className='block w-full text-left font-montserrat font-light text-2xl sm:text-3xl text-black hover:text-gray-600 transition-colors duration-300'
+											className='block w-full text-left font-montserrat font-light text-xl sm:text-2xl text-black hover:text-gray-600 transition-colors duration-300'
 										>
 											{item.name}
 										</button>
@@ -98,7 +98,7 @@ const Navigation = ({ isOpen, onClose }: NavigationProps) => {
 								initial={{ opacity: 0, y: 20 }}
 								animate={{ opacity: 1, y: 0 }}
 								transition={{ delay: 0.5, duration: 0.3 }}
-								className='mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-gray-100'
+								className='mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-gray-100'
 							>
 								<h3 className='font-montserrat font-semibold text-base sm:text-lg text-black mb-3 sm:mb-4'>
 									CONTACT
@@ -108,7 +108,7 @@ const Navigation = ({ isOpen, onClose }: NavigationProps) => {
 										<Mail size={14} className='text-gray-600 sm:hidden' />
 										<Mail size={16} className='text-gray-600 hidden sm:block' />
 										<span className='font-inter text-xs sm:text-sm text-gray-700 break-all'>
-											info@artifexgroup.uz
+											info@artifex.uz
 										</span>
 									</div>
 									<div className='flex items-center space-x-2 sm:space-x-3'>
@@ -118,7 +118,7 @@ const Navigation = ({ isOpen, onClose }: NavigationProps) => {
 											className='text-gray-600 hidden sm:block'
 										/>
 										<span className='font-inter text-xs sm:text-sm text-gray-700'>
-											+998 90 123 45 67
+											+966 56 160 70 44
 										</span>
 									</div>
 									<div className='flex items-center space-x-2 sm:space-x-3'>

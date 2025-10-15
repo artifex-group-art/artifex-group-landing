@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import HeroSection from '@/components/hero-section'
 import { WhoWeAreSection } from '@/components/who-we-are-section'
 import { WhatWeDoSection } from '@/components/what-we-do-section'
@@ -32,10 +33,13 @@ export default function Home() {
 			<header className='fixed top-0 left-0 right-0 z-50 flex justify-between items-center p-6'>
 				{/* Logo */}
 				<div className='flex items-center'>
-					<img
+					<Image
 						src='/logo.png'
 						alt='Artifex Group Logo'
+						width={160}
+						height={80}
 						className='h-20 w-auto object-contain drop-shadow-lg'
+						priority
 					/>
 				</div>
 
@@ -48,7 +52,6 @@ export default function Home() {
 			<WhoWeAreSection />
 			<WhatWeDoSection />
 			<PhilosophySection />
-			<PartnershipsSection />
 			<AboutSection />
 			<ProjectsSection />
 			<NewsSection />

@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 
 // DB dan projectlar ma'lumotini olish uchun interface (Prisma schema ga mos)
 interface ProjectImage {
@@ -58,6 +59,8 @@ export default function ProjectsSection() {
 			try {
 				setError(null)
 				const projectsData = await getProjects()
+				console.log('🔍 Loaded projects from DB:', projectsData)
+				console.log('📊 Total projects:', projectsData.length)
 				setProjects(projectsData)
 			} catch (error) {
 				console.error('Error loading projects:', error)
@@ -244,10 +247,12 @@ export default function ProjectsSection() {
 							viewport={{ once: true }}
 							onClick={() => handleProjectClick(project.slug)}
 						>
-							<img
+							<Image
 								src={firstImage}
 								alt={project.title}
-								className='w-full h-full object-cover transition-all duration-500'
+								fill
+								sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+								className='object-cover transition-all duration-500'
 							/>
 							{/* Hover qoralashish effekti */}
 							<div className='absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-500' />
