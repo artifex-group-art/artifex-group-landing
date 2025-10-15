@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import {
 	ArrowLeft,
 	User,
@@ -152,7 +152,7 @@ export default function ArchitecturalProjectDetailPage() {
 			{/* Project Info Section */}
 			<section className='py-12 bg-white border-b border-slate-200'>
 				<div className='max-w-7xl mx-auto px-6 lg:px-8'>
-					<motion.div
+					<m.div
 						className='grid grid-cols-1 lg:grid-cols-3 gap-8'
 						initial={{ opacity: 0, y: 20 }}
 						animate={{ opacity: 1, y: 0 }}
@@ -263,7 +263,7 @@ export default function ArchitecturalProjectDetailPage() {
 								</div>
 							</div>
 						</div>
-					</motion.div>
+					</m.div>
 				</div>
 			</section>
 
@@ -272,7 +272,7 @@ export default function ArchitecturalProjectDetailPage() {
 				<section className='py-20 bg-gradient-to-b from-slate-50 to-white'>
 					<div className='max-w-[1600px] mx-auto px-6 lg:px-8'>
 						{/* Gallery Header */}
-						<motion.div
+						<m.div
 							className='text-center mb-16'
 							initial={{ opacity: 0, y: 20 }}
 							whileInView={{ opacity: 1, y: 0 }}
@@ -289,10 +289,10 @@ export default function ArchitecturalProjectDetailPage() {
 								Comprehensive visual exploration showcasing every detail and
 								perspective of this architectural masterpiece
 							</p>
-						</motion.div>
+						</m.div>
 
 						{/* Creative Masonry Layout */}
-						<motion.div
+						<m.div
 							className='columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-8 space-y-8'
 							initial={{ opacity: 0, y: 40 }}
 							whileInView={{ opacity: 1, y: 0 }}
@@ -307,10 +307,10 @@ export default function ArchitecturalProjectDetailPage() {
 									index={index}
 								/>
 							))}
-						</motion.div>
+						</m.div>
 
 						{/* Gallery Stats */}
-						<motion.div
+						<m.div
 							className='mt-20 text-center'
 							initial={{ opacity: 0, y: 20 }}
 							whileInView={{ opacity: 1, y: 0 }}
@@ -345,7 +345,7 @@ export default function ArchitecturalProjectDetailPage() {
 									</div>
 								</div>
 							</div>
-						</motion.div>
+						</m.div>
 					</div>
 				</section>
 			)}
@@ -353,7 +353,7 @@ export default function ArchitecturalProjectDetailPage() {
 			{/* Simple CTA Section */}
 			<section className='py-16 bg-white'>
 				<div className='max-w-4xl mx-auto px-6 lg:px-8 text-center'>
-					<motion.div
+					<m.div
 						className='bg-slate-900 text-white p-12'
 						initial={{ opacity: 0, y: 30 }}
 						whileInView={{ opacity: 1, y: 0 }}
@@ -383,7 +383,7 @@ export default function ArchitecturalProjectDetailPage() {
 								VIEW MORE PROJECTS
 							</Button>
 						</div>
-					</motion.div>
+					</m.div>
 				</div>
 			</section>
 		</div>
@@ -419,7 +419,7 @@ function ProfessionalImageCard({
 	const isLargeImage = (index + 1) % 5 === 0
 
 	return (
-		<motion.div
+		<m.div
 			className={`break-inside-avoid mb-8 group ${
 				isLargeImage ? 'md:col-span-2 lg:col-span-2' : ''
 			}`}
@@ -506,6 +506,6 @@ function ProfessionalImageCard({
 					</div>
 				</div>
 			</div>
-		</motion.div>
+		</m.div>
 	)
 }

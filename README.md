@@ -1,32 +1,62 @@
 # ARTIFEX GROUP - Architecture Website
 
-Bu loyiha ARTIFEX GROUP kompaniyasi uchun yaratilgan modern arxitektura veb-sayti. Loyihada admin panel, project management va PostgreSQL database ishlatilgan.
+Bu loyiha ARTIFEX GROUP kompaniyasi uchun yaratilgan modern arxitektura veb-sayti. Loyihada admin panel, project management, SEO optimization va PostgreSQL database ishlatilgan.
 
 ## 🚀 Texnologiyalar
 
 - **Frontend**: Next.js 14, React, TypeScript
 - **Styling**: Tailwind CSS, Framer Motion
-- **Database**: PostgreSQL, Prisma ORM
+- **Database**: PostgreSQL (Neon), Prisma ORM
 - **Authentication**: NextAuth.js
 - **UI Components**: Radix UI, shadcn/ui
+- **File Storage**: AWS S3
+- **Email**: Resend
+- **SEO**: Structured Data, Open Graph, Twitter Cards
 
 ## 📋 Xususiyatlar
 
 ### Foydalanuvchilar uchun:
 
 - Modern va responsive dizayn
-- Projectlar ko'rish (grid layout)
-- Individual project sahifalari
-- About section va boshqa static sahifalar
+- Hero section with statistics & partner logos
+- Who We Are section with team images
+- What We Do services showcase
+- Philosophy & Partnerships sections
+- Projects gallery (database-driven)
+- News section
+- Contact form with email integration
+- Location & About sections
+- Fully optimized for SEO
+- Progressive Web App (PWA) support
 
 ### Admin uchun:
 
 - Secure login system
 - Project CRUD operatsiyalari
-- Image upload
+- Image upload to AWS S3
 - Publish/unpublish projects
-- Featured projects boshqaruvi
+- Featured projects management
+- Hero images management
+- Who We Are images management
+- News management
+- Categories management
 - Real-time statistics
+
+### SEO Features:
+
+- ✅ Comprehensive meta tags
+- ✅ Open Graph & Twitter Cards
+- ✅ JSON-LD Structured Data (Schema.org)
+- ✅ Dynamic sitemap.xml
+- ✅ robots.txt configuration
+- ✅ Semantic HTML5 markup
+- ✅ Image optimization (WebP, AVIF)
+- ✅ Fast loading performance
+- ✅ Mobile-first responsive design
+- ✅ Accessibility (ARIA labels, skip links)
+- ✅ Security headers
+- ✅ PWA manifest
+- ✅ Canonical URLs
 
 ## 🛠 O'rnatish
 

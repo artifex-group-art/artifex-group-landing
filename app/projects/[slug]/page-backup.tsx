@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import {
 	ArrowLeft,
 	Calendar,
@@ -17,7 +17,7 @@ import {
 	Circle,
 	Grid3X3,
 	Layers,
-	Move3D
+	Move3D,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -96,7 +96,9 @@ export default function ArchitecturalProjectDetailPage() {
 			<div className='min-h-screen flex items-center justify-center bg-slate-50'>
 				<div className='text-center'>
 					<div className='animate-spin rounded-full h-12 w-12 border-b-2 border-slate-900 mx-auto'></div>
-					<p className='mt-4 text-slate-600 font-mono text-sm'>Loading project specifications...</p>
+					<p className='mt-4 text-slate-600 font-mono text-sm'>
+						Loading project specifications...
+					</p>
 				</div>
 			</div>
 		)
@@ -111,9 +113,10 @@ export default function ArchitecturalProjectDetailPage() {
 						PROJECT NOT FOUND
 					</h1>
 					<p className='text-slate-600 mb-8'>
-						The architectural project you're looking for doesn't exist or has been removed from our portfolio.
+						The architectural project you're looking for doesn't exist or has
+						been removed from our portfolio.
 					</p>
-					<Button 
+					<Button
 						onClick={() => router.push('/')}
 						className='bg-slate-900 text-white hover:bg-slate-800 font-mono'
 					>
@@ -134,20 +137,20 @@ export default function ArchitecturalProjectDetailPage() {
 			<section className='relative h-screen overflow-hidden border-b-2 border-slate-900'>
 				{/* Blueprint Grid Background */}
 				<div className='absolute inset-0 opacity-[0.03]'>
-					<div 
+					<div
 						className='w-full h-full'
 						style={{
 							backgroundImage: `
 								linear-gradient(to right, #1e293b 1px, transparent 1px),
 								linear-gradient(to bottom, #1e293b 1px, transparent 1px)
 							`,
-							backgroundSize: '60px 60px'
+							backgroundSize: '60px 60px',
 						}}
 					/>
 				</div>
 
 				{/* Hero Image */}
-				<motion.img
+				<m.img
 					src={heroImage}
 					alt={project.title}
 					className='w-full h-full object-cover'
@@ -155,7 +158,7 @@ export default function ArchitecturalProjectDetailPage() {
 					animate={{ scale: 1 }}
 					transition={{ duration: 2, ease: 'easeOut' }}
 				/>
-				
+
 				{/* Technical Overlay */}
 				<div className='absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent' />
 
@@ -174,7 +177,10 @@ export default function ArchitecturalProjectDetailPage() {
 				{/* Technical Info Badge */}
 				<div className='absolute top-8 right-8 z-10 text-right'>
 					<div className='bg-white/10 backdrop-blur-sm border border-white/20 p-4 font-mono text-white text-xs'>
-						<div className='mb-2'>PROJECT NO. {String(Math.floor(Math.random() * 999) + 1).padStart(3, '0')}</div>
+						<div className='mb-2'>
+							PROJECT NO.{' '}
+							{String(Math.floor(Math.random() * 999) + 1).padStart(3, '0')}
+						</div>
 						<div className='mb-2'>SCALE 1:100</div>
 						<div>{allImages.length} VISUALS</div>
 					</div>
@@ -183,14 +189,16 @@ export default function ArchitecturalProjectDetailPage() {
 				{/* Technical Corner Elements */}
 				<div className='absolute top-8 left-1/2 transform -translate-x-1/2 text-white/60'>
 					<div className='border-t-2 border-white/20 w-16'></div>
-					<span className='text-xs font-mono mt-2 block text-center'>ELEVATION</span>
+					<span className='text-xs font-mono mt-2 block text-center'>
+						ELEVATION
+					</span>
 				</div>
 
 				{/* Project Information */}
 				<div className='absolute bottom-0 left-0 right-0 p-8 lg:p-16'>
 					<div className='max-w-6xl mx-auto'>
 						{/* Technical Badges */}
-						<motion.div
+						<m.div
 							className='flex items-center gap-4 mb-8 flex-wrap'
 							initial={{ opacity: 0, y: 20 }}
 							animate={{ opacity: 1, y: 0 }}
@@ -207,52 +215,63 @@ export default function ArchitecturalProjectDetailPage() {
 							<div className='border border-white/20 text-white px-4 py-2 font-mono text-sm'>
 								{new Date(project.createdAt).getFullYear()}
 							</div>
-						</motion.div>
+						</m.div>
 
 						{/* Project Title */}
-						<motion.h1
+						<m.h1
 							className='text-5xl lg:text-8xl font-light text-white mb-8 leading-tight tracking-tight'
 							initial={{ opacity: 0, y: 30 }}
 							animate={{ opacity: 1, y: 0 }}
 							transition={{ delay: 0.4 }}
 						>
 							{project.title.split(' ').map((word, index) => (
-								<span key={index} className={index % 2 === 1 ? 'font-bold' : 'font-light'}>
+								<span
+									key={index}
+									className={index % 2 === 1 ? 'font-bold' : 'font-light'}
+								>
 									{word}{' '}
 								</span>
 							))}
-						</motion.h1>
+						</m.h1>
 
 						{/* Technical Details */}
-						<motion.div
+						<m.div
 							className='grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8'
 							initial={{ opacity: 0, y: 20 }}
 							animate={{ opacity: 1, y: 0 }}
 							transition={{ delay: 0.5 }}
 						>
 							<div className='border-l-2 border-white/20 pl-6'>
-								<div className='text-white/60 font-mono text-xs mb-2'>ARCHITECT</div>
-								<div className='text-white font-bold'>{project.author.name || 'ARTIFEX GROUP'}</div>
+								<div className='text-white/60 font-mono text-xs mb-2'>
+									ARCHITECT
+								</div>
+								<div className='text-white font-bold'>
+									{project.author.name || 'ARTIFEX GROUP'}
+								</div>
 							</div>
 							<div className='border-l-2 border-white/20 pl-6'>
-								<div className='text-white/60 font-mono text-xs mb-2'>LOCATION</div>
+								<div className='text-white/60 font-mono text-xs mb-2'>
+									LOCATION
+								</div>
 								<div className='text-white font-bold'>UZBEKISTAN</div>
 							</div>
 							<div className='border-l-2 border-white/20 pl-6'>
-								<div className='text-white/60 font-mono text-xs mb-2'>STATUS</div>
+								<div className='text-white/60 font-mono text-xs mb-2'>
+									STATUS
+								</div>
 								<div className='text-white font-bold'>COMPLETED</div>
 							</div>
-						</motion.div>
+						</m.div>
 
 						{/* Description */}
-						<motion.p
+						<m.p
 							className='text-white/90 text-lg lg:text-xl max-w-4xl leading-relaxed'
 							initial={{ opacity: 0, y: 20 }}
 							animate={{ opacity: 1, y: 0 }}
 							transition={{ delay: 0.6 }}
 						>
 							{project.description}
-						</motion.p>
+						</m.p>
 					</div>
 				</div>
 			</section>
@@ -262,7 +281,7 @@ export default function ArchitecturalProjectDetailPage() {
 				<section className='py-24 bg-white border-b-2 border-slate-900'>
 					<div className='max-w-7xl mx-auto px-6 lg:px-8'>
 						{/* Section Header */}
-						<motion.div
+						<m.div
 							className='mb-16'
 							initial={{ opacity: 0, y: 20 }}
 							whileInView={{ opacity: 1, y: 0 }}
@@ -281,13 +300,15 @@ export default function ArchitecturalProjectDetailPage() {
 								</div>
 								<div className='text-right font-mono text-sm text-slate-600'>
 									<div className='mb-2'>DRAWING SET</div>
-									<div className='text-2xl font-bold text-slate-900'>{allImages.length}</div>
+									<div className='text-2xl font-bold text-slate-900'>
+										{allImages.length}
+									</div>
 								</div>
 							</div>
-						</motion.div>
+						</m.div>
 
 						{/* Images Grid */}
-						<motion.div
+						<m.div
 							className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'
 							initial={{ opacity: 0, y: 30 }}
 							whileInView={{ opacity: 1, y: 0 }}
@@ -302,7 +323,7 @@ export default function ArchitecturalProjectDetailPage() {
 									index={index}
 								/>
 							))}
-						</motion.div>
+						</m.div>
 					</div>
 				</section>
 			)}
@@ -310,7 +331,7 @@ export default function ArchitecturalProjectDetailPage() {
 			{/* Project Specifications */}
 			<section className='py-24 bg-slate-50'>
 				<div className='max-w-6xl mx-auto px-6 lg:px-8'>
-					<motion.div
+					<m.div
 						className='grid grid-cols-1 lg:grid-cols-2 gap-16'
 						initial={{ opacity: 0, y: 30 }}
 						whileInView={{ opacity: 1, y: 0 }}
@@ -325,11 +346,17 @@ export default function ArchitecturalProjectDetailPage() {
 							</h3>
 							<div className='space-y-6'>
 								<div className='grid grid-cols-2 gap-4 py-4 border-b border-slate-200'>
-									<span className='text-slate-600 font-mono text-sm'>PROJECT TYPE</span>
-									<span className='text-slate-900 font-bold'>{project.category?.name || 'Architecture'}</span>
+									<span className='text-slate-600 font-mono text-sm'>
+										PROJECT TYPE
+									</span>
+									<span className='text-slate-900 font-bold'>
+										{project.category?.name || 'Architecture'}
+									</span>
 								</div>
 								<div className='grid grid-cols-2 gap-4 py-4 border-b border-slate-200'>
-									<span className='text-slate-600 font-mono text-sm'>COMPLETION</span>
+									<span className='text-slate-600 font-mono text-sm'>
+										COMPLETION
+									</span>
 									<span className='text-slate-900 font-bold'>
 										{new Date(project.createdAt).toLocaleDateString('en-US', {
 											year: 'numeric',
@@ -338,19 +365,25 @@ export default function ArchitecturalProjectDetailPage() {
 									</span>
 								</div>
 								<div className='grid grid-cols-2 gap-4 py-4 border-b border-slate-200'>
-									<span className='text-slate-600 font-mono text-sm'>CLASSIFICATION</span>
+									<span className='text-slate-600 font-mono text-sm'>
+										CLASSIFICATION
+									</span>
 									<span className='text-slate-900 font-bold'>
 										{project.featured ? 'Featured Project' : 'Standard Project'}
 									</span>
 								</div>
 								<div className='grid grid-cols-2 gap-4 py-4 border-b border-slate-200'>
-									<span className='text-slate-600 font-mono text-sm'>DRAWINGS</span>
+									<span className='text-slate-600 font-mono text-sm'>
+										DRAWINGS
+									</span>
 									<span className='text-slate-900 font-bold'>
 										{allImages.length} Visual{allImages.length !== 1 ? 's' : ''}
 									</span>
 								</div>
 								<div className='grid grid-cols-2 gap-4 py-4 border-b border-slate-200'>
-									<span className='text-slate-600 font-mono text-sm'>STATUS</span>
+									<span className='text-slate-600 font-mono text-sm'>
+										STATUS
+									</span>
 									<span className='text-green-600 font-bold'>PUBLISHED</span>
 								</div>
 							</div>
@@ -364,13 +397,17 @@ export default function ArchitecturalProjectDetailPage() {
 							</h3>
 							<div className='space-y-6'>
 								<div className='grid grid-cols-2 gap-4 py-4 border-b border-white/20'>
-									<span className='text-white/60 font-mono text-sm'>LEAD ARCHITECT</span>
+									<span className='text-white/60 font-mono text-sm'>
+										LEAD ARCHITECT
+									</span>
 									<span className='text-white font-bold'>
 										{project.author.name || 'ARTIFEX GROUP'}
 									</span>
 								</div>
 								<div className='grid grid-cols-2 gap-4 py-4 border-b border-white/20'>
-									<span className='text-white/60 font-mono text-sm'>CONTACT</span>
+									<span className='text-white/60 font-mono text-sm'>
+										CONTACT
+									</span>
 									<span className='text-white font-bold'>
 										{project.author.email || 'info@artifex.com'}
 									</span>
@@ -380,7 +417,9 @@ export default function ArchitecturalProjectDetailPage() {
 									<span className='text-white font-bold'>ARTIFEX GROUP</span>
 								</div>
 								<div className='grid grid-cols-2 gap-4 py-4 border-b border-white/20'>
-									<span className='text-white/60 font-mono text-sm'>LOCATION</span>
+									<span className='text-white/60 font-mono text-sm'>
+										LOCATION
+									</span>
 									<span className='text-white font-bold flex items-center'>
 										<MapPin className='h-4 w-4 mr-2' />
 										UZBEKISTAN
@@ -388,10 +427,10 @@ export default function ArchitecturalProjectDetailPage() {
 								</div>
 							</div>
 						</div>
-					</motion.div>
+					</m.div>
 
 					{/* CTA Section */}
-					<motion.div
+					<m.div
 						className='mt-20 bg-white border-2 border-slate-900 p-12 text-center'
 						initial={{ opacity: 0, y: 30 }}
 						whileInView={{ opacity: 1, y: 0 }}
@@ -402,12 +441,13 @@ export default function ArchitecturalProjectDetailPage() {
 							INTERESTED IN SIMILAR WORK?
 						</h3>
 						<p className='text-slate-600 mb-8 text-lg max-w-2xl mx-auto'>
-							Let's collaborate to create exceptional architectural solutions that push the boundaries 
-							of design innovation and sustainable development.
+							Let's collaborate to create exceptional architectural solutions
+							that push the boundaries of design innovation and sustainable
+							development.
 						</p>
 						<div className='flex flex-col sm:flex-row gap-4 justify-center'>
-							<Button 
-								size='lg' 
+							<Button
+								size='lg'
 								className='bg-slate-900 text-white hover:bg-slate-800 font-mono px-8'
 							>
 								<DraftingCompass className='h-4 w-4 mr-2' />
@@ -422,7 +462,7 @@ export default function ArchitecturalProjectDetailPage() {
 								VIEW MORE PROJECTS
 							</Button>
 						</div>
-					</motion.div>
+					</m.div>
 				</div>
 			</section>
 		</div>
@@ -441,11 +481,22 @@ interface TechnicalImageCardProps {
 	index: number
 }
 
-function TechnicalImageCard({ image, project, index }: TechnicalImageCardProps) {
+function TechnicalImageCard({
+	image,
+	project,
+	index,
+}: TechnicalImageCardProps) {
 	const [imageLoaded, setImageLoaded] = useState(false)
 
 	const getDrawingType = (index: number) => {
-		const types = ['PLAN', 'ELEVATION', 'SECTION', 'DETAIL', 'PERSPECTIVE', '3D VIEW']
+		const types = [
+			'PLAN',
+			'ELEVATION',
+			'SECTION',
+			'DETAIL',
+			'PERSPECTIVE',
+			'3D VIEW',
+		]
 		return types[index % types.length]
 	}
 
@@ -458,7 +509,7 @@ function TechnicalImageCard({ image, project, index }: TechnicalImageCardProps) 
 	const Icon = getDrawingIcon(index)
 
 	return (
-		<motion.div
+		<m.div
 			className='group cursor-pointer'
 			initial={{ opacity: 0, y: 50 }}
 			whileInView={{ opacity: 1, y: 0 }}
@@ -484,7 +535,10 @@ function TechnicalImageCard({ image, project, index }: TechnicalImageCardProps) 
 				<div className='relative aspect-[4/3] overflow-hidden'>
 					<img
 						src={image.url}
-						alt={image.caption || `${project.title} - ${getDrawingType(index)} ${index + 1}`}
+						alt={
+							image.caption ||
+							`${project.title} - ${getDrawingType(index)} ${index + 1}`
+						}
 						className={`w-full h-full object-cover transition-all duration-700 group-hover:scale-105 ${
 							imageLoaded ? 'opacity-100' : 'opacity-0'
 						}`}
@@ -523,6 +577,6 @@ function TechnicalImageCard({ image, project, index }: TechnicalImageCardProps) 
 					</div>
 				</div>
 			</div>
-		</motion.div>
+		</m.div>
 	)
 }

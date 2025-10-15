@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { MapPin, Building2 } from 'lucide-react'
 
 const locations = [
@@ -37,7 +37,7 @@ export function LocationSection() {
 			</div>
 
 			<div className='max-w-7xl mx-auto relative z-10'>
-				<motion.div
+				<m.div
 					initial={{ opacity: 0, y: 30 }}
 					whileInView={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.8 }}
@@ -46,7 +46,7 @@ export function LocationSection() {
 				>
 					{/* Heading */}
 					<div className='text-center space-y-4'>
-						<motion.div
+						<m.div
 							initial={{ opacity: 0, scale: 0.9 }}
 							whileInView={{ opacity: 1, scale: 1 }}
 							transition={{ duration: 0.6 }}
@@ -57,9 +57,9 @@ export function LocationSection() {
 							<h2 className='font-heading font-semibold text-4xl lg:text-5xl text-primary leading-tight'>
 								Our Locations
 							</h2>
-						</motion.div>
+						</m.div>
 						<div className='w-24 h-1 bg-primary/20 mx-auto'></div>
-						<motion.p
+						<m.p
 							initial={{ opacity: 0, y: 20 }}
 							whileInView={{ opacity: 1, y: 0 }}
 							transition={{ duration: 0.6, delay: 0.1 }}
@@ -67,7 +67,7 @@ export function LocationSection() {
 							className='font-body text-lg text-primary/70 max-w-3xl mx-auto leading-relaxed'
 						>
 							Visit us at our offices in Riyadh to discuss your next project
-						</motion.p>
+						</m.p>
 					</div>
 
 					{/* Locations Grid */}
@@ -75,7 +75,7 @@ export function LocationSection() {
 						{locations.map((location, index) => {
 							const Icon = location.icon
 							return (
-								<motion.div
+								<m.div
 									key={location.title}
 									initial={{ opacity: 0, y: 30 }}
 									whileInView={{ opacity: 1, y: 0 }}
@@ -129,11 +129,11 @@ export function LocationSection() {
 											Open in Google Maps
 										</a>
 									</div>
-								</motion.div>
+								</m.div>
 							)
 						})}
 					</div>
-				</motion.div>
+				</m.div>
 			</div>
 		</section>
 	)

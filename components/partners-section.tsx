@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import Image from 'next/image'
 
 const partners = [
@@ -37,7 +37,7 @@ export function PartnersSection() {
 	return (
 		<section className='py-32 px-6 lg:px-8'>
 			<div className='max-w-6xl mx-auto text-center'>
-				<motion.h2
+				<m.h2
 					className='font-heading font-semibold text-4xl lg:text-5xl text-primary mb-16 leading-tight'
 					initial={{ opacity: 0, y: 20 }}
 					whileInView={{ opacity: 1, y: 0 }}
@@ -45,9 +45,9 @@ export function PartnersSection() {
 					transition={{ duration: 0.8, ease: 'easeInOut' }}
 				>
 					Organizations that partnered with us
-				</motion.h2>
+				</m.h2>
 
-				<motion.div
+				<m.div
 					className='flex flex-wrap justify-center items-center gap-12 lg:gap-16'
 					variants={containerVariants}
 					initial='hidden'
@@ -55,7 +55,7 @@ export function PartnersSection() {
 					viewport={{ once: true, margin: '-100px' }}
 				>
 					{partners.map((partner, index) => (
-						<motion.div
+						<m.div
 							key={index}
 							className='group cursor-pointer'
 							variants={itemVariants}
@@ -71,9 +71,9 @@ export function PartnersSection() {
 								height={48}
 								className='h-12 w-auto grayscale group-hover:grayscale-0 transition-all duration-300 opacity-60 group-hover:opacity-100'
 							/>
-						</motion.div>
+						</m.div>
 					))}
-				</motion.div>
+				</m.div>
 			</div>
 		</section>
 	)

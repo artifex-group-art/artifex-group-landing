@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import {
 	ArrowLeft,
 	Calendar,
@@ -153,7 +153,7 @@ export default function ProjectDetailPage() {
 			{/* Project Info Section */}
 			<section className='py-12 bg-white border-b border-slate-200'>
 				<div className='max-w-7xl mx-auto px-6 lg:px-8'>
-					<motion.div
+					<m.div
 						className='grid grid-cols-1 lg:grid-cols-3 gap-8'
 						initial={{ opacity: 0, y: 20 }}
 						animate={{ opacity: 1, y: 0 }}
@@ -271,7 +271,7 @@ export default function ProjectDetailPage() {
 								</div>
 							</div>
 						</div>
-					</motion.div>
+					</m.div>
 				</div>
 			</section>
 
@@ -280,7 +280,7 @@ export default function ProjectDetailPage() {
 				<section className='py-16 bg-slate-50'>
 					<div className='max-w-7xl mx-auto px-6 lg:px-8'>
 						{/* Gallery Header */}
-						<motion.div
+						<m.div
 							className='text-center mb-12'
 							initial={{ opacity: 0, y: 20 }}
 							whileInView={{ opacity: 1, y: 0 }}
@@ -299,10 +299,10 @@ export default function ProjectDetailPage() {
 								Comprehensive collection of project images showcasing every
 								detail and perspective
 							</p>
-						</motion.div>
+						</m.div>
 
 						{/* Masonry Grid */}
-						<motion.div
+						<m.div
 							className='columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-6 space-y-6'
 							initial={{ opacity: 0, y: 30 }}
 							whileInView={{ opacity: 1, y: 0 }}
@@ -317,7 +317,7 @@ export default function ProjectDetailPage() {
 									index={index}
 								/>
 							))}
-						</motion.div>
+						</m.div>
 					</div>
 				</section>
 			)}
@@ -325,7 +325,7 @@ export default function ProjectDetailPage() {
 			{/* CTA Section */}
 			<section className='py-16 bg-white'>
 				<div className='max-w-4xl mx-auto px-6 lg:px-8 text-center'>
-					<motion.div
+					<m.div
 						className='bg-slate-900 text-white p-12 rounded-none'
 						initial={{ opacity: 0, y: 30 }}
 						whileInView={{ opacity: 1, y: 0 }}
@@ -357,7 +357,7 @@ export default function ProjectDetailPage() {
 								VIEW MORE PROJECTS
 							</Button>
 						</div>
-					</motion.div>
+					</m.div>
 				</div>
 			</section>
 		</div>
@@ -386,7 +386,7 @@ function ImageCard({ image, project, index }: ImageCardProps) {
 	}
 
 	return (
-		<motion.div
+		<m.div
 			className='break-inside-avoid mb-6 group'
 			initial={{ opacity: 0, scale: 0.8 }}
 			whileInView={{ opacity: 1, scale: 1 }}
@@ -444,6 +444,6 @@ function ImageCard({ image, project, index }: ImageCardProps) {
 					</div>
 				</div>
 			</div>
-		</motion.div>
+		</m.div>
 	)
 }

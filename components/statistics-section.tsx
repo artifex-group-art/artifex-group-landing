@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { useEffect, useState } from 'react'
 
 interface CountUpProps {
@@ -48,7 +48,7 @@ export function StatisticsSection() {
 	return (
 		<section className='py-20 px-6 lg:px-8 bg-muted/30'>
 			<div className='max-w-7xl mx-auto'>
-				<motion.div
+				<m.div
 					className='grid grid-cols-1 md:grid-cols-4 gap-12 items-center'
 					initial={{ opacity: 0, y: 50 }}
 					whileInView={{ opacity: 1, y: 0 }}
@@ -56,7 +56,7 @@ export function StatisticsSection() {
 					viewport={{ once: true }}
 				>
 					{/* Years of Experience */}
-					<motion.div
+					<m.div
 						className='text-center'
 						initial={{ opacity: 0, scale: 0.8 }}
 						whileInView={{ opacity: 1, scale: 1 }}
@@ -67,10 +67,10 @@ export function StatisticsSection() {
 						<p className='font-body text-sm text-muted-foreground uppercase tracking-wider mt-2'>
 							Years Experience
 						</p>
-					</motion.div>
+					</m.div>
 
 					{/* Projects Completed */}
-					<motion.div
+					<m.div
 						className='text-center'
 						initial={{ opacity: 0, scale: 0.8 }}
 						whileInView={{ opacity: 1, scale: 1 }}
@@ -81,10 +81,10 @@ export function StatisticsSection() {
 						<p className='font-body text-sm text-muted-foreground uppercase tracking-wider mt-2'>
 							Projects Completed
 						</p>
-					</motion.div>
+					</m.div>
 
 					{/* Team Members */}
-					<motion.div
+					<m.div
 						className='text-center'
 						initial={{ opacity: 0, scale: 0.8 }}
 						whileInView={{ opacity: 1, scale: 1 }}
@@ -95,10 +95,10 @@ export function StatisticsSection() {
 						<p className='font-body text-sm text-muted-foreground uppercase tracking-wider mt-2'>
 							Team Members
 						</p>
-					</motion.div>
+					</m.div>
 
 					{/* Countries */}
-					<motion.div
+					<m.div
 						className='text-center'
 						initial={{ opacity: 0, scale: 0.8 }}
 						whileInView={{ opacity: 1, scale: 1 }}
@@ -109,8 +109,8 @@ export function StatisticsSection() {
 						<p className='font-body text-sm text-muted-foreground uppercase tracking-wider mt-2'>
 							Countries
 						</p>
-					</motion.div>
-				</motion.div>
+					</m.div>
+				</m.div>
 			</div>
 		</section>
 	)

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import Image from 'next/image'
 import { ArrowLeft } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -119,7 +119,7 @@ export default function MinimalProjectDetailPage() {
 			{/* Asymmetric Layout */}
 			<div className='pt-24 relative'>
 				{/* Project Title - Auto Height */}
-				<motion.div
+				<m.div
 					className='absolute left-4 md:left-8 lg:left-12 top-72 md:top-64 lg:top-32 z-20 max-w-lg md:max-w-2xl lg:max-w-2xl'
 					initial={{ opacity: 0, x: -50 }}
 					animate={{ opacity: 1, x: 0 }}
@@ -146,13 +146,13 @@ export default function MinimalProjectDetailPage() {
 							</span>
 						</div>
 					</div>
-				</motion.div>
+				</m.div>
 
 				{/* Gallery Layout */}
 				{allImages.length > 0 && (
 					<>
 						{/* First Image - Right Side */}
-						<motion.div
+						<m.div
 							className='absolute right-2 md:right-2 lg:right-4 top-16 md:top-18 lg:top-24 w-[calc(100vw-20px)] sm:w-[600px] md:w-[750px] lg:w-[800px] h-[40vh] sm:h-[75vh] md:h-[90vh] lg:h-[90vh] z-10'
 							initial={{ opacity: 0, x: 100 }}
 							animate={{ opacity: 1, x: 0 }}
@@ -171,13 +171,13 @@ export default function MinimalProjectDetailPage() {
 								{/* Hover Overlay */}
 								<div className='absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500'></div>
 							</div>
-						</motion.div>
+						</m.div>
 
 						{/* Remaining Images - Grid Layout */}
 						{allImages.length > 1 && (
 							<section className='pt-[100vh] md:pt-[120vh] lg:pt-[120vh] px-4 md:px-6 lg:px-8'>
 								{/* Section Heading */}
-								<motion.div
+								<m.div
 									className='text-center mb-8 md:mb-12 lg:mb-16'
 									initial={{ opacity: 0, y: 50 }}
 									whileInView={{ opacity: 1, y: 0 }}
@@ -191,7 +191,7 @@ export default function MinimalProjectDetailPage() {
 										Explore detailed views and additional perspectives of this
 										architectural project
 									</p>
-								</motion.div>
+								</m.div>
 
 								<div className='space-y-0'>
 									{/* Mobile Layout - 2 images per row */}
@@ -256,7 +256,7 @@ export default function MinimalProjectDetailPage() {
 				)}
 
 				{/* CTA Section */}
-				<motion.section
+				<m.section
 					className='py-12 md:py-18 lg:py-24 px-4 md:px-8 lg:px-12'
 					initial={{ opacity: 0, y: 50 }}
 					whileInView={{ opacity: 1, y: 0 }}
@@ -271,7 +271,7 @@ export default function MinimalProjectDetailPage() {
 							Our professional team is ready to bring your most complex
 							architectural projects to life
 						</p>
-						<motion.div
+						<m.div
 							className='flex flex-col sm:flex-row gap-3 md:gap-4 justify-center px-4'
 							initial={{ opacity: 0, y: 20 }}
 							whileInView={{ opacity: 1, y: 0 }}
@@ -284,29 +284,29 @@ export default function MinimalProjectDetailPage() {
 							<button className='px-6 md:px-8 py-3 md:py-4 border border-black/20 text-black rounded-full font-medium transition-all duration-300 hover:bg-black/5 hover:scale-105 text-sm md:text-base'>
 								View Portfolio
 							</button>
-						</motion.div>
+						</m.div>
 					</div>
-				</motion.section>
+				</m.section>
 
 				{/* Simplified Progress Indicator */}
 				<div className='fixed right-8 top-1/2 -translate-y-1/2 z-10'>
 					<div className='flex flex-col gap-1'>
 						{allImages.map((_, index) => (
-							<motion.div
+							<m.div
 								key={index}
 								className='w-0.5 h-8 bg-black/20 rounded-full overflow-hidden'
 								initial={{ opacity: 0 }}
 								whileInView={{ opacity: 1 }}
 								viewport={{ once: true }}
 							>
-								<motion.div
+								<m.div
 									className='w-full bg-black rounded-full'
 									initial={{ height: 0 }}
 									whileInView={{ height: '100%' }}
 									viewport={{ once: true }}
 									transition={{ delay: index * 0.1, duration: 0.8 }}
 								/>
-							</motion.div>
+							</m.div>
 						))}
 					</div>
 				</div>
@@ -339,7 +339,7 @@ function CleanImageCard({ image, index, total }: CleanImageCardProps) {
 		: 'ml-40'
 
 	return (
-		<motion.div
+		<m.div
 			className={`relative ${offsetClass} mb-6`}
 			initial={{ opacity: 0, y: 100, scale: 0.8 }}
 			whileInView={{ opacity: 1, y: 0, scale: 1 }}
@@ -380,7 +380,7 @@ function CleanImageCard({ image, index, total }: CleanImageCardProps) {
 
 			{/* Caption */}
 			{image.caption && (
-				<motion.p
+				<m.p
 					className='mt-4 text-black/60 text-sm font-light max-w-md'
 					initial={{ opacity: 0, y: 20 }}
 					whileInView={{ opacity: 1, y: 0 }}
@@ -388,18 +388,18 @@ function CleanImageCard({ image, index, total }: CleanImageCardProps) {
 					transition={{ delay: index * 0.2 + 0.8, duration: 0.6 }}
 				>
 					{image.caption}
-				</motion.p>
+				</m.p>
 			)}
 
 			{/* Progress Line */}
-			<motion.div
+			<m.div
 				className='mt-6 h-px bg-gradient-to-r from-black/40 to-transparent'
 				initial={{ width: 0 }}
 				whileInView={{ width: `${((index + 1) / total) * 100}%` }}
 				viewport={{ once: true }}
 				transition={{ delay: index * 0.2 + 1, duration: 1 }}
 			/>
-		</motion.div>
+		</m.div>
 	)
 }
 
@@ -445,7 +445,7 @@ function ScatteredImageCard({ image, index, total }: ScatteredImageCardProps) {
 	const size = sizes[index % sizes.length]
 
 	return (
-		<motion.div
+		<m.div
 			className={`${position} ${size} mb-1`}
 			initial={{ opacity: 0, y: 100, scale: 0.8 }}
 			whileInView={{ opacity: 1, y: 0, scale: 1 }}
@@ -482,7 +482,7 @@ function ScatteredImageCard({ image, index, total }: ScatteredImageCardProps) {
 				{/* Hover Overlay */}
 				<div className='absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500 rounded-2xl'></div>
 			</div>
-		</motion.div>
+		</m.div>
 	)
 }
 
@@ -537,7 +537,7 @@ function GridImageCard({
 	}
 
 	return (
-		<motion.div
+		<m.div
 			className={`${width} h-full`}
 			initial={{ opacity: 0, y: 100, scale: 0.8 }}
 			whileInView={{ opacity: 1, y: 0, scale: 1 }}
@@ -572,6 +572,6 @@ function GridImageCard({
 				{/* Hover Overlay */}
 				<div className='absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500'></div>
 			</div>
-		</motion.div>
+		</m.div>
 	)
 }

@@ -150,7 +150,7 @@ export default function ProjectDetailPage() {
 		<div className='min-h-screen bg-background'>
 			{/* Hero Section */}
 			<section className='relative h-[70vh] overflow-hidden'>
-				<motion.img
+				<m.img
 					src={heroImage}
 					alt={project.title}
 					className='w-full h-full object-cover'
@@ -189,7 +189,7 @@ export default function ProjectDetailPage() {
 				{/* Content */}
 				<div className='absolute bottom-0 left-0 right-0 p-8 lg:p-16'>
 					<div className='max-w-4xl'>
-						<motion.div
+						<m.div
 							className='flex items-center gap-4 mb-6 flex-wrap'
 							initial={{ opacity: 0, y: 20 }}
 							animate={{ opacity: 1, y: 0 }}
@@ -217,18 +217,18 @@ export default function ProjectDetailPage() {
 									day: 'numeric',
 								})}
 							</div>
-						</motion.div>
+						</m.div>
 
-						<motion.h1
+						<m.h1
 							className='text-4xl lg:text-6xl font-bold text-white mb-6 leading-tight'
 							initial={{ opacity: 0, y: 30 }}
 							animate={{ opacity: 1, y: 0 }}
 							transition={{ delay: 0.4 }}
 						>
 							{project.title}
-						</motion.h1>
+						</m.h1>
 
-						<motion.div
+						<m.div
 							className='flex items-center text-white/80'
 							initial={{ opacity: 0, y: 20 }}
 							animate={{ opacity: 1, y: 0 }}
@@ -236,7 +236,7 @@ export default function ProjectDetailPage() {
 						>
 							<User className='h-4 w-4 mr-2' />
 							<span>By {project.author.name || 'ARTIFEX GROUP'}</span>
-						</motion.div>
+						</m.div>
 					</div>
 				</div>
 			</section>
@@ -245,7 +245,7 @@ export default function ProjectDetailPage() {
 			{allImages.length > 1 && (
 				<section className='py-16 bg-muted/20'>
 					<div className='max-w-7xl mx-auto px-6 lg:px-8'>
-						<motion.div
+						<m.div
 							className='text-center mb-12'
 							initial={{ opacity: 0, y: 20 }}
 							whileInView={{ opacity: 1, y: 0 }}
@@ -258,9 +258,9 @@ export default function ProjectDetailPage() {
 							<p className='text-muted-foreground'>
 								Explore different perspectives and details of this project
 							</p>
-						</motion.div>
+						</m.div>
 
-						<motion.div
+						<m.div
 							className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'
 							initial={{ opacity: 0, y: 30 }}
 							whileInView={{ opacity: 1, y: 0 }}
@@ -268,7 +268,7 @@ export default function ProjectDetailPage() {
 							transition={{ duration: 0.8, staggerChildren: 0.1 }}
 						>
 							{allImages.map((image, index) => (
-								<motion.div
+								<m.div
 									key={image.id}
 									className='relative aspect-video overflow-hidden rounded-lg cursor-pointer group'
 									initial={{ opacity: 0, scale: 0.8 }}
@@ -291,9 +291,9 @@ export default function ProjectDetailPage() {
 											<p className='text-white text-sm'>{image.caption}</p>
 										)}
 									</div>
-								</motion.div>
+								</m.div>
 							))}
-						</motion.div>
+						</m.div>
 					</div>
 				</section>
 			)}
@@ -301,7 +301,7 @@ export default function ProjectDetailPage() {
 			{/* Content Section */}
 			<section className='py-16 lg:py-24'>
 				<div className='max-w-4xl mx-auto px-6 lg:px-8'>
-					<motion.div
+					<m.div
 						className='prose prose-lg max-w-none'
 						initial={{ opacity: 0, y: 30 }}
 						whileInView={{ opacity: 1, y: 0 }}
@@ -317,10 +317,10 @@ export default function ProjectDetailPage() {
 								{project.description}
 							</div>
 						</div>
-					</motion.div>
+					</m.div>
 
 					{/* Project Details */}
-					<motion.div
+					<m.div
 						className='mt-12 grid grid-cols-1 md:grid-cols-2 gap-8'
 						initial={{ opacity: 0, y: 30 }}
 						whileInView={{ opacity: 1, y: 0 }}
@@ -390,10 +390,10 @@ export default function ProjectDetailPage() {
 								</div>
 							</div>
 						</div>
-					</motion.div>
+					</m.div>
 
 					{/* CTA Section */}
-					<motion.div
+					<m.div
 						className='mt-16 text-center'
 						initial={{ opacity: 0, y: 30 }}
 						whileInView={{ opacity: 1, y: 0 }}
@@ -418,7 +418,7 @@ export default function ProjectDetailPage() {
 								View More Projects
 							</Button>
 						</div>
-					</motion.div>
+					</m.div>
 				</div>
 			</section>
 
@@ -445,7 +445,7 @@ export default function ProjectDetailPage() {
 
 								{/* Main Image */}
 								<AnimatePresence mode='wait'>
-									<motion.img
+									<m.img
 										key={currentImageIndex}
 										src={allImages[currentImageIndex]?.url}
 										alt={

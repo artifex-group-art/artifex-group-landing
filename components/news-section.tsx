@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
@@ -171,7 +171,7 @@ export default function NewsSection() {
 	return (
 		<section id='news' className='py-16 bg-gray-50'>
 			{/* Section Header */}
-			<motion.div
+			<m.div
 				className='max-w-7xl mx-auto px-6 lg:px-8 mb-12'
 				initial={{ opacity: 0, y: 30 }}
 				whileInView={{ opacity: 1, y: 0 }}
@@ -186,10 +186,10 @@ export default function NewsSection() {
 						Stay updated with our latest projects, insights, and industry news
 					</p>
 				</div>
-			</motion.div>
+			</m.div>
 
 			{/* News Grid */}
-			<motion.div
+			<m.div
 				className='max-w-7xl mx-auto px-6 lg:px-8'
 				initial={{ opacity: 0 }}
 				whileInView={{ opacity: 1 }}
@@ -203,7 +203,7 @@ export default function NewsSection() {
 							article.images[0]?.url || article.imageUrl || '/placeholder.jpg'
 
 						return (
-							<motion.div
+							<m.div
 								key={article.id}
 								initial={{ opacity: 0, y: 30 }}
 								whileInView={{ opacity: 1, y: 0 }}
@@ -262,11 +262,11 @@ export default function NewsSection() {
 										</div>
 									</CardContent>
 								</Card>
-							</motion.div>
+							</m.div>
 						)
 					})}
 				</div>
-			</motion.div>
+			</m.div>
 		</section>
 	)
 }

@@ -15,7 +15,7 @@ import {
 	MoveUp,
 	MoveDown,
 } from 'lucide-react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 
 interface ImageUploadProps {
 	images: UploadedImage[]
@@ -175,7 +175,7 @@ export function ImageUpload({
 					<div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
 						<AnimatePresence>
 							{images.map((image, index) => (
-								<motion.div
+								<m.div
 									key={image.url}
 									initial={{ opacity: 0, scale: 0.8 }}
 									animate={{ opacity: 1, scale: 1 }}
@@ -250,7 +250,7 @@ export function ImageUpload({
 											/>
 										</div>
 									</div>
-								</motion.div>
+								</m.div>
 							))}
 						</AnimatePresence>
 					</div>

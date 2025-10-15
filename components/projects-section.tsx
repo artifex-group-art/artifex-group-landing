@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
@@ -168,7 +168,7 @@ export default function ProjectsSection() {
 	return (
 		<section id='projects' className='py-32 bg-white'>
 			{/* Section Header */}
-			<motion.div
+			<m.div
 				className='max-w-7xl mx-auto px-6 lg:px-8 mb-16'
 				initial={{ opacity: 0, y: 30 }}
 				whileInView={{ opacity: 1, y: 0 }}
@@ -189,7 +189,7 @@ export default function ProjectsSection() {
 					</div>
 
 					{/* Statistics */}
-					<motion.div
+					<m.div
 						initial={{ opacity: 0, y: 20 }}
 						whileInView={{ opacity: 1, y: 0 }}
 						viewport={{ once: true }}
@@ -220,12 +220,12 @@ export default function ProjectsSection() {
 								Commercial & Retail Complexes
 							</div>
 						</div>
-					</motion.div>
+					</m.div>
 				</div>
-			</motion.div>
+			</m.div>
 
 			{/* Projects Grid */}
-			<motion.div
+			<m.div
 				className='grid grid-cols-3 gap-0'
 				initial={{ opacity: 0 }}
 				whileInView={{ opacity: 1 }}
@@ -238,7 +238,7 @@ export default function ProjectsSection() {
 						project.images[0]?.url || project.imageUrl || '/placeholder.jpg'
 
 					return (
-						<motion.div
+						<m.div
 							key={project.id}
 							className='aspect-[4/5] overflow-hidden group cursor-pointer relative'
 							initial={{ opacity: 0, scale: 0.9 }}
@@ -263,10 +263,10 @@ export default function ProjectsSection() {
 									{project.title}
 								</h3>
 							</div>
-						</motion.div>
+						</m.div>
 					)
 				})}
-			</motion.div>
+			</m.div>
 		</section>
 	)
 }

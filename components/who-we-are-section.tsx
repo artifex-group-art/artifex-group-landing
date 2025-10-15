@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 
@@ -44,7 +44,7 @@ export function WhoWeAreSection() {
 			className='py-32 px-6 lg:px-8 relative overflow-hidden bg-muted/30'
 		>
 			<div className='max-w-7xl mx-auto relative z-10'>
-				<motion.div
+				<m.div
 					initial={{ opacity: 0, y: 30 }}
 					whileInView={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.8, staggerChildren: 0.2 }}
@@ -52,7 +52,7 @@ export function WhoWeAreSection() {
 					className='space-y-16'
 				>
 					{/* Heading */}
-					<motion.div
+					<m.div
 						initial={{ opacity: 0, y: 20 }}
 						whileInView={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.6 }}
@@ -63,12 +63,12 @@ export function WhoWeAreSection() {
 							Who We Are
 						</h2>
 						<div className='w-24 h-1 bg-primary/20 mx-auto mt-6'></div>
-					</motion.div>
+					</m.div>
 
 					{/* Content Grid - Text Left, Image Right */}
 					<div className='grid lg:grid-cols-2 gap-12 lg:gap-16 items-center'>
 						{/* Text Content - Left Side */}
-						<motion.div
+						<m.div
 							initial={{ opacity: 0, x: -30 }}
 							whileInView={{ opacity: 1, x: 0 }}
 							transition={{ duration: 0.8, delay: 0.2 }}
@@ -110,10 +110,10 @@ export function WhoWeAreSection() {
 								boldly, build creatively, and deliver solutions that shape the
 								future.
 							</p>
-						</motion.div>
+						</m.div>
 
 						{/* Image - Right Side */}
-						<motion.div
+						<m.div
 							initial={{ opacity: 0, x: 30 }}
 							whileInView={{ opacity: 1, x: 0 }}
 							transition={{ duration: 0.8, delay: 0.3 }}
@@ -135,11 +135,11 @@ export function WhoWeAreSection() {
 
 							{/* Decorative element */}
 							<div className='absolute -bottom-4 -right-4 w-full h-full border-2 border-primary/20 rounded-2xl -z-10' />
-						</motion.div>
+						</m.div>
 					</div>
 
 					{/* Images Gallery - Creative Masonry Layout */}
-					<motion.div
+					<m.div
 						initial={{ opacity: 0, y: 20 }}
 						whileInView={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.8, delay: 0.4 }}
@@ -160,7 +160,7 @@ export function WhoWeAreSection() {
 						) : (
 							<div className='grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4'>
 								{images.map((image, index) => (
-									<motion.div
+									<m.div
 										key={image.id}
 										initial={{ opacity: 0, scale: 0.95 }}
 										whileInView={{ opacity: 1, scale: 1 }}
@@ -177,12 +177,12 @@ export function WhoWeAreSection() {
 											sizes='(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 33vw'
 											priority={index < 3}
 										/>
-									</motion.div>
+									</m.div>
 								))}
 							</div>
 						)}
-					</motion.div>
-				</motion.div>
+					</m.div>
+				</m.div>
 			</div>
 		</section>
 	)

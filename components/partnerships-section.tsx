@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import {
 	Globe,
 	Building,
@@ -52,7 +52,7 @@ export function PartnershipsSection() {
 			</div>
 
 			<div className='max-w-7xl mx-auto relative z-10'>
-				<motion.div
+				<m.div
 					initial={{ opacity: 0, y: 30 }}
 					whileInView={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.8 }}
@@ -61,7 +61,7 @@ export function PartnershipsSection() {
 				>
 					{/* Heading */}
 					<div className='text-center space-y-4'>
-						<motion.div
+						<m.div
 							initial={{ opacity: 0, scale: 0.9 }}
 							whileInView={{ opacity: 1, scale: 1 }}
 							transition={{ duration: 0.6 }}
@@ -72,9 +72,9 @@ export function PartnershipsSection() {
 							<h2 className='font-heading font-semibold text-4xl lg:text-5xl text-primary leading-tight'>
 								International Partnerships
 							</h2>
-						</motion.div>
+						</m.div>
 						<div className='w-24 h-1 bg-primary/20 mx-auto'></div>
-						<motion.p
+						<m.p
 							initial={{ opacity: 0, y: 20 }}
 							whileInView={{ opacity: 1, y: 0 }}
 							transition={{ duration: 0.6, delay: 0.1 }}
@@ -83,7 +83,7 @@ export function PartnershipsSection() {
 						>
 							ARTIFEX GROUP has established strong collaborations with leading
 							companies and institutions worldwide
-						</motion.p>
+						</m.p>
 					</div>
 
 					{/* Partnerships Grid */}
@@ -91,7 +91,7 @@ export function PartnershipsSection() {
 						{partnerships.map((partner, index) => {
 							const Icon = partner.icon
 							return (
-								<motion.div
+								<m.div
 									key={partner.title}
 									initial={{ opacity: 0, y: 30 }}
 									whileInView={{ opacity: 1, y: 0 }}
@@ -110,13 +110,13 @@ export function PartnershipsSection() {
 											{partner.description}
 										</p>
 									</div>
-								</motion.div>
+								</m.div>
 							)
 						})}
 					</div>
 
 					{/* Global Integration Statement */}
-					<motion.div
+					<m.div
 						initial={{ opacity: 0, y: 20 }}
 						whileInView={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.8, delay: 0.3 }}
@@ -135,10 +135,10 @@ export function PartnershipsSection() {
 							into projects that respect local cultural context and
 							environmental conditions.
 						</p>
-					</motion.div>
+					</m.div>
 
 					{/* ALUTECH Partnership - Premium Section */}
-					<motion.div
+					<m.div
 						initial={{ opacity: 0, y: 30 }}
 						whileInView={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.8, delay: 0.4 }}
@@ -148,7 +148,7 @@ export function PartnershipsSection() {
 						<div className='bg-gradient-to-br from-green-50 to-green-100/50 dark:from-green-950/20 dark:to-green-900/10 rounded-3xl p-8 lg:p-12 border-2 border-green-200/50 shadow-xl'>
 							{/* Logos Section - Professional Display */}
 							<div className='flex items-center justify-center gap-8 lg:gap-12 mb-8'>
-								<motion.div
+								<m.div
 									initial={{ opacity: 0, x: -20 }}
 									whileInView={{ opacity: 1, x: 0 }}
 									transition={{ duration: 0.6, delay: 0.5 }}
@@ -161,7 +161,7 @@ export function PartnershipsSection() {
 										fill
 										className='object-contain'
 									/>
-								</motion.div>
+								</m.div>
 
 								<div className='flex flex-col items-center gap-2'>
 									<div className='w-px h-16 bg-gradient-to-b from-transparent via-green-400 to-transparent' />
@@ -171,7 +171,7 @@ export function PartnershipsSection() {
 									<div className='w-px h-16 bg-gradient-to-b from-transparent via-green-400 to-transparent' />
 								</div>
 
-								<motion.div
+								<m.div
 									initial={{ opacity: 0, x: 20 }}
 									whileInView={{ opacity: 1, x: 0 }}
 									transition={{ duration: 0.6, delay: 0.6 }}
@@ -184,7 +184,7 @@ export function PartnershipsSection() {
 										fill
 										className='object-contain'
 									/>
-								</motion.div>
+								</m.div>
 							</div>
 
 							{/* Title & Subtitle */}
@@ -222,8 +222,8 @@ export function PartnershipsSection() {
 						{/* Decorative Elements */}
 						<div className='absolute -top-3 -right-3 w-24 h-24 bg-green-200/30 rounded-full blur-2xl -z-10' />
 						<div className='absolute -bottom-3 -left-3 w-24 h-24 bg-green-200/30 rounded-full blur-2xl -z-10' />
-					</motion.div>
-				</motion.div>
+					</m.div>
+				</m.div>
 			</div>
 		</section>
 	)

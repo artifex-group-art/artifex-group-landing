@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
 import { X, Mail, Phone, MapPin } from 'lucide-react'
 
@@ -35,7 +35,7 @@ const Navigation = ({ isOpen, onClose }: NavigationProps) => {
 			{isOpen && (
 				<>
 					{/* Backdrop */}
-					<motion.div
+					<m.div
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
 						exit={{ opacity: 0 }}
@@ -45,7 +45,7 @@ const Navigation = ({ isOpen, onClose }: NavigationProps) => {
 					/>
 
 					{/* Sidebar */}
-					<motion.div
+					<m.div
 						initial={{ x: '100%' }}
 						animate={{ x: 0 }}
 						exit={{ x: '100%' }}
@@ -74,7 +74,7 @@ const Navigation = ({ isOpen, onClose }: NavigationProps) => {
 						<div className='flex-1 p-4 sm:p-6 overflow-y-auto'>
 							<nav className='space-y-4 sm:space-y-5'>
 								{navigationItems.map((item, index) => (
-									<motion.div
+									<m.div
 										key={item.id}
 										initial={{ opacity: 0, x: 20 }}
 										animate={{ opacity: 1, x: 0 }}
@@ -89,12 +89,12 @@ const Navigation = ({ isOpen, onClose }: NavigationProps) => {
 										>
 											{item.name}
 										</button>
-									</motion.div>
+									</m.div>
 								))}
 							</nav>
 
 							{/* Contact Information */}
-							<motion.div
+							<m.div
 								initial={{ opacity: 0, y: 20 }}
 								animate={{ opacity: 1, y: 0 }}
 								transition={{ delay: 0.5, duration: 0.3 }}
@@ -133,9 +133,9 @@ const Navigation = ({ isOpen, onClose }: NavigationProps) => {
 										</span>
 									</div>
 								</div>
-							</motion.div>
+							</m.div>
 						</div>
-					</motion.div>
+					</m.div>
 				</>
 			)}
 		</AnimatePresence>

@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { Lightbulb, Heart, Sparkles } from 'lucide-react'
 
 const philosophyPoints = [
@@ -34,7 +34,7 @@ export function PhilosophySection() {
 			</div>
 
 			<div className='max-w-6xl mx-auto relative z-10'>
-				<motion.div
+				<m.div
 					initial={{ opacity: 0, y: 30 }}
 					whileInView={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.8 }}
@@ -43,7 +43,7 @@ export function PhilosophySection() {
 				>
 					{/* Heading */}
 					<div className='text-center space-y-4'>
-						<motion.h2
+						<m.h2
 							initial={{ opacity: 0, y: 20 }}
 							whileInView={{ opacity: 1, y: 0 }}
 							transition={{ duration: 0.6 }}
@@ -51,12 +51,12 @@ export function PhilosophySection() {
 							className='font-heading font-semibold text-4xl lg:text-5xl text-primary leading-tight'
 						>
 							Our Philosophy
-						</motion.h2>
+						</m.h2>
 						<div className='w-24 h-1 bg-primary/20 mx-auto'></div>
 					</div>
 
 					{/* Main Content */}
-					<motion.div
+					<m.div
 						initial={{ opacity: 0, y: 20 }}
 						whileInView={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.8, delay: 0.2 }}
@@ -76,7 +76,7 @@ export function PhilosophySection() {
 							{philosophyPoints.map((point, index) => {
 								const Icon = point.icon
 								return (
-									<motion.div
+									<m.div
 										key={point.title}
 										initial={{ opacity: 0, y: 30 }}
 										whileInView={{ opacity: 1, y: 0 }}
@@ -99,13 +99,13 @@ export function PhilosophySection() {
 												{point.description}
 											</p>
 										</div>
-									</motion.div>
+									</m.div>
 								)
 							})}
 						</div>
 
 						{/* Quote Section */}
-						<motion.div
+						<m.div
 							initial={{ opacity: 0, scale: 0.95 }}
 							whileInView={{ opacity: 1, scale: 1 }}
 							transition={{ duration: 0.8, delay: 0.4 }}
@@ -129,9 +129,9 @@ export function PhilosophySection() {
 									</blockquote>
 								</div>
 							</div>
-						</motion.div>
-					</motion.div>
-				</motion.div>
+						</m.div>
+					</m.div>
+				</m.div>
 			</div>
 		</section>
 	)

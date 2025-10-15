@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import {
 	Building2,
 	Layers,
@@ -62,7 +62,7 @@ export function WhatWeDoSection() {
 			className='py-32 px-6 lg:px-8 relative overflow-hidden bg-background'
 		>
 			<div className='max-w-7xl mx-auto'>
-				<motion.div
+				<m.div
 					initial={{ opacity: 0, y: 30 }}
 					whileInView={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.8 }}
@@ -71,7 +71,7 @@ export function WhatWeDoSection() {
 				>
 					{/* Heading */}
 					<div className='text-center space-y-4'>
-						<motion.h2
+						<m.h2
 							initial={{ opacity: 0, y: 20 }}
 							whileInView={{ opacity: 1, y: 0 }}
 							transition={{ duration: 0.6 }}
@@ -79,9 +79,9 @@ export function WhatWeDoSection() {
 							className='font-heading font-semibold text-4xl lg:text-5xl text-primary leading-tight'
 						>
 							What We Do
-						</motion.h2>
+						</m.h2>
 						<div className='w-24 h-1 bg-primary/20 mx-auto'></div>
-						<motion.p
+						<m.p
 							initial={{ opacity: 0, y: 20 }}
 							whileInView={{ opacity: 1, y: 0 }}
 							transition={{ duration: 0.6, delay: 0.1 }}
@@ -90,12 +90,12 @@ export function WhatWeDoSection() {
 						>
 							ARTIFEX GROUP delivers a full spectrum of architectural and
 							development services — from concept to completion.
-						</motion.p>
+						</m.p>
 					</div>
 
 					{/* Services Grid */}
 					<div>
-						<motion.h3
+						<m.h3
 							initial={{ opacity: 0, y: 20 }}
 							whileInView={{ opacity: 1, y: 0 }}
 							transition={{ duration: 0.6 }}
@@ -103,13 +103,13 @@ export function WhatWeDoSection() {
 							className='font-heading text-2xl lg:text-3xl text-primary mb-8 text-center'
 						>
 							Our Services
-						</motion.h3>
+						</m.h3>
 
 						<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6'>
 							{services.map((service, index) => {
 								const Icon = service.icon
 								return (
-									<motion.div
+									<m.div
 										key={service.title}
 										initial={{ opacity: 0, y: 30 }}
 										whileInView={{ opacity: 1, y: 0 }}
@@ -128,14 +128,14 @@ export function WhatWeDoSection() {
 												{service.description}
 											</p>
 										</div>
-									</motion.div>
+									</m.div>
 								)
 							})}
 						</div>
 					</div>
 
 					{/* Beyond Design Section */}
-					<motion.div
+					<m.div
 						initial={{ opacity: 0, y: 30 }}
 						whileInView={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.8, delay: 0.2 }}
@@ -160,8 +160,8 @@ export function WhatWeDoSection() {
 								</p>
 							</div>
 						</div>
-					</motion.div>
-				</motion.div>
+					</m.div>
+				</m.div>
 			</div>
 		</section>
 	)

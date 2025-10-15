@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import Image from 'next/image'
 
 export function AboutSection() {
@@ -44,7 +44,7 @@ export function AboutSection() {
 			className='py-32 px-6 lg:px-8 relative overflow-hidden bg-background'
 		>
 			<div className='max-w-7xl mx-auto relative z-10'>
-				<motion.div
+				<m.div
 					className='grid grid-cols-1 lg:grid-cols-3 gap-16 lg:gap-24'
 					variants={containerVariants}
 					initial='hidden'
@@ -52,7 +52,7 @@ export function AboutSection() {
 					viewport={{ once: true, margin: '-100px' }}
 				>
 					{/* Left Column - Text Content */}
-					<motion.div className='lg:col-span-2' variants={leftVariants}>
+					<m.div className='lg:col-span-2' variants={leftVariants}>
 						<h2 className='font-heading font-semibold text-4xl lg:text-5xl text-primary mb-8 leading-tight'>
 							We focused on modern design
 						</h2>
@@ -76,10 +76,10 @@ export function AboutSection() {
 								the way people live, work, and interact.
 							</p>
 						</div>
-					</motion.div>
+					</m.div>
 
 					{/* Right Column - Founder Photo and Quote */}
-					<motion.div className='space-y-8' variants={rightVariants}>
+					<m.div className='space-y-8' variants={rightVariants}>
 						<div className='relative'>
 							<div className='aspect-[2/3] max-w-sm bg-muted rounded-lg overflow-hidden relative border border-primary/20 shadow-sm'>
 								<Image
@@ -102,8 +102,8 @@ export function AboutSection() {
 								— Rustam Khaitmetov, Founder of Artifex
 							</footer>
 						</blockquote>
-					</motion.div>
-				</motion.div>
+					</m.div>
+				</m.div>
 			</div>
 		</section>
 	)

@@ -47,7 +47,7 @@ import {
 	Images,
 	FileText,
 } from 'lucide-react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 
 interface Project {
 	id: string
@@ -448,7 +448,7 @@ export default function AdminDashboard() {
 			<main className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8'>
 				{/* Stats */}
 				<div className='grid grid-cols-1 md:grid-cols-5 gap-6 mb-8'>
-					<motion.div
+					<m.div
 						initial={{ opacity: 0, y: 20 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ delay: 0.1 }}
@@ -468,9 +468,9 @@ export default function AdminDashboard() {
 								</div>
 							</CardContent>
 						</Card>
-					</motion.div>
+					</m.div>
 
-					<motion.div
+					<m.div
 						initial={{ opacity: 0, y: 20 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ delay: 0.2 }}
@@ -492,9 +492,9 @@ export default function AdminDashboard() {
 								</div>
 							</CardContent>
 						</Card>
-					</motion.div>
+					</m.div>
 
-					<motion.div
+					<m.div
 						initial={{ opacity: 0, y: 20 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ delay: 0.3 }}
@@ -516,9 +516,9 @@ export default function AdminDashboard() {
 								</div>
 							</CardContent>
 						</Card>
-					</motion.div>
+					</m.div>
 
-					<motion.div
+					<m.div
 						initial={{ opacity: 0, y: 20 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ delay: 0.4 }}
@@ -538,9 +538,9 @@ export default function AdminDashboard() {
 								</div>
 							</CardContent>
 						</Card>
-					</motion.div>
+					</m.div>
 
-					<motion.div
+					<m.div
 						initial={{ opacity: 0, y: 20 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ delay: 0.5 }}
@@ -560,7 +560,7 @@ export default function AdminDashboard() {
 								</div>
 							</CardContent>
 						</Card>
-					</motion.div>
+					</m.div>
 				</div>
 
 				{/* Tabs */}
@@ -913,7 +913,7 @@ export default function AdminDashboard() {
 									) : (
 										<div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
 											{whoWeAreImages.map(image => (
-												<motion.div
+												<m.div
 													key={image.id}
 													initial={{ opacity: 0, scale: 0.9 }}
 													animate={{ opacity: 1, scale: 1 }}
@@ -943,7 +943,7 @@ export default function AdminDashboard() {
 															Order: {image.order}
 														</p>
 													</div>
-												</motion.div>
+												</m.div>
 											))}
 										</div>
 									)}

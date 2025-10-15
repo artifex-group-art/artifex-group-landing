@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
@@ -58,7 +58,7 @@ export function CTASection() {
 	return (
 		<section id='contact' className='py-32 px-6 lg:px-8 bg-card'>
 			<div className='max-w-4xl mx-auto'>
-				<motion.div
+				<m.div
 					className='text-center mb-16'
 					initial={{ opacity: 0, y: 30 }}
 					whileInView={{ opacity: 1, y: 0 }}
@@ -72,9 +72,9 @@ export function CTASection() {
 						Have a project in mind? We'd love to hear from you. Send us a
 						message and we'll respond as soon as possible.
 					</p>
-				</motion.div>
+				</m.div>
 
-				<motion.form
+				<m.form
 					onSubmit={handleSubmit}
 					className='max-w-2xl mx-auto space-y-6'
 					initial={{ opacity: 0, y: 20 }}
@@ -83,7 +83,7 @@ export function CTASection() {
 					transition={{ duration: 0.8, delay: 0.2, ease: 'easeInOut' }}
 				>
 					<div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-						<motion.div
+						<m.div
 							className='relative'
 							initial={{ opacity: 0, x: -20 }}
 							whileInView={{ opacity: 1, x: 0 }}
@@ -100,9 +100,9 @@ export function CTASection() {
 								required
 								className='pl-10 h-12 bg-white/50 border-muted focus:border-primary transition-colors'
 							/>
-						</motion.div>
+						</m.div>
 
-						<motion.div
+						<m.div
 							className='relative'
 							initial={{ opacity: 0, x: 20 }}
 							whileInView={{ opacity: 1, x: 0 }}
@@ -119,10 +119,10 @@ export function CTASection() {
 								required
 								className='pl-10 h-12 bg-white/50 border-muted focus:border-primary transition-colors'
 							/>
-						</motion.div>
+						</m.div>
 					</div>
 
-					<motion.div
+					<m.div
 						className='relative'
 						initial={{ opacity: 0, y: 20 }}
 						whileInView={{ opacity: 1, y: 0 }}
@@ -139,31 +139,31 @@ export function CTASection() {
 							rows={6}
 							className='pl-10 pt-3 bg-white/50 border-muted focus:border-primary transition-colors resize-none'
 						/>
-					</motion.div>
+					</m.div>
 
 					{submitStatus === 'success' && (
-						<motion.div
+						<m.div
 							className='text-green-600 text-center font-medium'
 							initial={{ opacity: 0, scale: 0.9 }}
 							animate={{ opacity: 1, scale: 1 }}
 							transition={{ duration: 0.3 }}
 						>
 							✓ Message sent successfully! We'll get back to you soon.
-						</motion.div>
+						</m.div>
 					)}
 
 					{submitStatus === 'error' && (
-						<motion.div
+						<m.div
 							className='text-red-600 text-center font-medium'
 							initial={{ opacity: 0, scale: 0.9 }}
 							animate={{ opacity: 1, scale: 1 }}
 							transition={{ duration: 0.3 }}
 						>
 							✗ Something went wrong. Please try again.
-						</motion.div>
+						</m.div>
 					)}
 
-					<motion.div
+					<m.div
 						className='text-center'
 						initial={{ opacity: 0, y: 20 }}
 						whileInView={{ opacity: 1, y: 0 }}
@@ -178,7 +178,7 @@ export function CTASection() {
 						>
 							{isSubmitting ? (
 								<>
-									<motion.div
+									<m.div
 										className='w-5 h-5 border-2 border-current border-t-transparent rounded-full mr-2'
 										animate={{ rotate: 360 }}
 										transition={{
@@ -196,8 +196,8 @@ export function CTASection() {
 								</>
 							)}
 						</Button>
-					</motion.div>
-				</motion.form>
+					</m.div>
+				</m.form>
 			</div>
 		</section>
 	)

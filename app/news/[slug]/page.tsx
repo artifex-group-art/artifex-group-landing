@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { ArrowLeft, Calendar, User } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -130,7 +130,7 @@ export default function NewsDetailPage() {
 			{/* Hero Section */}
 			<section className='relative pt-24 pb-12'>
 				{/* Hero Image */}
-				<motion.div
+				<m.div
 					className='relative w-full h-[60vh] md:h-[70vh] lg:h-[80vh] overflow-hidden'
 					initial={{ opacity: 0, scale: 1.1 }}
 					animate={{ opacity: 1, scale: 1 }}
@@ -142,10 +142,10 @@ export default function NewsDetailPage() {
 						className='w-full h-full object-cover'
 					/>
 					<div className='absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent'></div>
-				</motion.div>
+				</m.div>
 
 				{/* Article Header Overlay */}
-				<motion.div
+				<m.div
 					className='absolute bottom-0 left-0 right-0 p-6 md:p-8 lg:p-12'
 					initial={{ opacity: 0, y: 50 }}
 					animate={{ opacity: 1, y: 0 }}
@@ -179,14 +179,14 @@ export default function NewsDetailPage() {
 							{news.description}
 						</p>
 					</div>
-				</motion.div>
+				</m.div>
 			</section>
 
 			{/* Article Content */}
 			<section className='py-12 md:py-16 lg:py-20'>
 				<div className='max-w-4xl mx-auto px-6 md:px-8 lg:px-12'>
 					{news.content && (
-						<motion.div
+						<m.div
 							className='prose prose-xl md:prose-2xl max-w-none 
 								prose-headings:text-black 
 								prose-p:text-black/80 prose-p:leading-relaxed prose-p:mb-8 prose-p:text-lg md:prose-p:text-xl
@@ -216,7 +216,7 @@ export default function NewsDetailPage() {
 				<section className='py-12 md:py-16 lg:py-20 bg-gray-50'>
 					<div className='max-w-7xl mx-auto px-6 md:px-8 lg:px-12'>
 						{/* Section Title */}
-						<motion.div
+						<m.div
 							className='text-center mb-12'
 							initial={{ opacity: 0, y: 30 }}
 							whileInView={{ opacity: 1, y: 0 }}
@@ -229,12 +229,12 @@ export default function NewsDetailPage() {
 							<p className='text-black/60 text-lg max-w-2xl mx-auto'>
 								Additional images and details from this news story
 							</p>
-						</motion.div>
+						</m.div>
 
 						{/* Images Grid */}
 						<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
 							{additionalImages.map((image, index) => (
-								<motion.div
+								<m.div
 									key={image.id}
 									className='group'
 									initial={{ opacity: 0, y: 30 }}
@@ -254,7 +254,7 @@ export default function NewsDetailPage() {
 											{image.caption}
 										</p>
 									)}
-								</motion.div>
+								</m.div>
 							))}
 						</div>
 					</div>
@@ -262,7 +262,7 @@ export default function NewsDetailPage() {
 			)}
 
 			{/* Related Articles CTA */}
-			<motion.section
+			<m.section
 				className='py-12 md:py-16 lg:py-20'
 				initial={{ opacity: 0, y: 50 }}
 				whileInView={{ opacity: 1, y: 0 }}
@@ -277,7 +277,7 @@ export default function NewsDetailPage() {
 						Don't miss out on our latest news, insights, and project updates
 						from the world of architecture and design.
 					</p>
-					<motion.div
+					<m.div
 						className='flex flex-col sm:flex-row gap-4 justify-center'
 						initial={{ opacity: 0, y: 20 }}
 						whileInView={{ opacity: 1, y: 0 }}
@@ -297,9 +297,9 @@ export default function NewsDetailPage() {
 						>
 							Contact Us
 						</Button>
-					</motion.div>
+					</m.div>
 				</div>
-			</motion.section>
+			</m.section>
 		</div>
 	)
 }

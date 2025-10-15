@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import {
 	ArrowLeft,
 	Calendar,
@@ -121,7 +121,7 @@ export default function ProjectDetailPage() {
 		<div className='min-h-screen bg-background'>
 			{/* Hero Section */}
 			<section className='relative h-[80vh] overflow-hidden'>
-				<motion.img
+				<m.img
 					src={heroImage}
 					alt={project.title}
 					className='w-full h-full object-cover'
@@ -153,7 +153,7 @@ export default function ProjectDetailPage() {
 				{/* Hero Content */}
 				<div className='absolute bottom-0 left-0 right-0 p-8 lg:p-16'>
 					<div className='max-w-6xl mx-auto'>
-						<motion.div
+						<m.div
 							className='flex items-center gap-4 mb-6 flex-wrap'
 							initial={{ opacity: 0, y: 20 }}
 							animate={{ opacity: 1, y: 0 }}
@@ -182,18 +182,18 @@ export default function ProjectDetailPage() {
 									day: 'numeric',
 								})}
 							</div>
-						</motion.div>
+						</m.div>
 
-						<motion.h1
+						<m.h1
 							className='text-4xl lg:text-7xl font-bold text-white mb-6 leading-tight'
 							initial={{ opacity: 0, y: 30 }}
 							animate={{ opacity: 1, y: 0 }}
 							transition={{ delay: 0.4 }}
 						>
 							{project.title}
-						</motion.h1>
+						</m.h1>
 
-						<motion.div
+						<m.div
 							className='flex items-center text-white/80 mb-6'
 							initial={{ opacity: 0, y: 20 }}
 							animate={{ opacity: 1, y: 0 }}
@@ -201,16 +201,16 @@ export default function ProjectDetailPage() {
 						>
 							<User className='h-4 w-4 mr-2' />
 							<span>By {project.author.name || 'ARTIFEX GROUP'}</span>
-						</motion.div>
+						</m.div>
 
-						<motion.p
+						<m.p
 							className='text-white/90 text-lg lg:text-xl max-w-3xl leading-relaxed'
 							initial={{ opacity: 0, y: 20 }}
 							animate={{ opacity: 1, y: 0 }}
 							transition={{ delay: 0.6 }}
 						>
 							{project.description}
-						</motion.p>
+						</m.p>
 					</div>
 				</div>
 			</section>
@@ -219,7 +219,7 @@ export default function ProjectDetailPage() {
 			{allImages.length > 0 && (
 				<section className='py-20 bg-card/50'>
 					<div className='max-w-7xl mx-auto px-6 lg:px-8'>
-						<motion.div
+						<m.div
 							className='text-center mb-16'
 							initial={{ opacity: 0, y: 20 }}
 							whileInView={{ opacity: 1, y: 0 }}
@@ -233,10 +233,10 @@ export default function ProjectDetailPage() {
 								Explore every detail and perspective of this architectural
 								masterpiece
 							</p>
-						</motion.div>
+						</m.div>
 
 						{/* Masonry Grid Layout */}
-						<motion.div
+						<m.div
 							className='columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-6 space-y-6'
 							initial={{ opacity: 0, y: 30 }}
 							whileInView={{ opacity: 1, y: 0 }}
@@ -244,7 +244,7 @@ export default function ProjectDetailPage() {
 							transition={{ duration: 0.8, staggerChildren: 0.1 }}
 						>
 							{allImages.map((image, index) => (
-								<motion.div
+								<m.div
 									key={image.id}
 									className='break-inside-avoid group cursor-pointer'
 									initial={{ opacity: 0, scale: 0.8 }}
@@ -288,9 +288,9 @@ export default function ProjectDetailPage() {
 											{index + 1}
 										</div>
 									</div>
-								</motion.div>
+								</m.div>
 							))}
-						</motion.div>
+						</m.div>
 					</div>
 				</section>
 			)}
@@ -298,7 +298,7 @@ export default function ProjectDetailPage() {
 			{/* Project Details */}
 			<section className='py-20'>
 				<div className='max-w-4xl mx-auto px-6 lg:px-8'>
-					<motion.div
+					<m.div
 						className='grid grid-cols-1 md:grid-cols-2 gap-8'
 						initial={{ opacity: 0, y: 30 }}
 						whileInView={{ opacity: 1, y: 0 }}
@@ -375,10 +375,10 @@ export default function ProjectDetailPage() {
 								</div>
 							</div>
 						</div>
-					</motion.div>
+					</m.div>
 
 					{/* CTA Section */}
-					<motion.div
+					<m.div
 						className='mt-16 text-center'
 						initial={{ opacity: 0, y: 30 }}
 						whileInView={{ opacity: 1, y: 0 }}
@@ -407,7 +407,7 @@ export default function ProjectDetailPage() {
 								</Button>
 							</div>
 						</div>
-					</motion.div>
+					</m.div>
 				</div>
 			</section>
 		</div>

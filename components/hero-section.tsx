@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, useAnimation, useInView } from 'framer-motion'
+import { m, useAnimation, useInView } from 'framer-motion'
 import { useEffect, useState, useRef } from 'react'
 import Image from 'next/image'
 
@@ -102,7 +102,7 @@ const StatisticsSection = () => {
 			<div className='hidden lg:block w-px h-24 bg-white/30'></div>
 
 			{/* Partner Logos Section - Right Side */}
-			<motion.div
+			<m.div
 				initial={{ opacity: 0, x: 20 }}
 				animate={{ opacity: 1, x: 0 }}
 				transition={{ duration: 0.8, delay: 2.5 }}
@@ -113,7 +113,7 @@ const StatisticsSection = () => {
 				</p>
 				<div className='flex items-center justify-center gap-6 sm:gap-8'>
 					{/* Alutech Logo */}
-					<motion.div
+					<m.div
 						whileHover={{ scale: 1.05 }}
 						transition={{ duration: 0.3 }}
 						className='relative w-24 h-16 sm:w-28 sm:h-18 group'
@@ -128,10 +128,10 @@ const StatisticsSection = () => {
 								sizes='(max-width: 640px) 96px, 112px'
 							/>
 						</div>
-					</motion.div>
+					</m.div>
 
 					{/* Uzbek Foods Logo */}
-					<motion.div
+					<m.div
 						whileHover={{ scale: 1.05 }}
 						transition={{ duration: 0.3 }}
 						className='relative w-24 h-16 sm:w-28 sm:h-18 group'
@@ -146,9 +146,9 @@ const StatisticsSection = () => {
 								sizes='(max-width: 640px) 96px, 112px'
 							/>
 						</div>
-					</motion.div>
+					</m.div>
 				</div>
-			</motion.div>
+			</m.div>
 		</div>
 	)
 }
@@ -248,7 +248,7 @@ export default function HeroSection() {
 				{staticHeroImages.length > 0 && (
 					<div className='relative w-full h-full'>
 						{staticHeroImages.map((image, index) => (
-							<motion.div
+							<m.div
 								key={image.id}
 								className='absolute inset-0 w-full h-full'
 								initial={{
@@ -279,7 +279,7 @@ export default function HeroSection() {
 								/>
 								{/* Dark overlay for text readability */}
 								<div className='absolute inset-0 bg-black/50' />
-							</motion.div>
+							</m.div>
 						))}
 					</div>
 				)}
@@ -289,59 +289,59 @@ export default function HeroSection() {
 			<div className='relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full'>
 				<div className='flex items-center justify-center min-h-screen py-20 sm:py-0'>
 					{/* Main Content */}
-					<motion.div
+					<m.div
 						className='w-full max-w-4xl text-center px-4'
 						initial={{ opacity: 0, y: 30 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
 					>
 						<div className='geometric-accent mb-6 sm:mb-8 relative'>
-							<motion.h1
+							<m.h1
 								className='font-heading font-bold text-4xl sm:text-7xl lg:text-9xl text-white leading-[0.85] tracking-tighter relative z-10 drop-shadow-2xl'
 								variants={titleVariants}
 								initial='hidden'
 								animate='visible'
 							>
 								{'ARTIFEX'.split('').map((letter, index) => (
-									<motion.span
+									<m.span
 										key={index}
 										variants={letterVariants}
 										className='inline-block'
 									>
 										{letter}
-									</motion.span>
+									</m.span>
 								))}
 								<br />
 								<span className='text-white/80 font-light'>
 									{'GROUP'.split('').map((letter, index) => (
-										<motion.span
+										<m.span
 											key={index + 7}
 											variants={letterVariants}
 											className='inline-block'
 										>
 											{letter}
-										</motion.span>
+										</m.span>
 									))}
 								</span>
-							</motion.h1>
+							</m.h1>
 						</div>
 
 						{/* Statistics Section */}
-						<motion.div
+						<m.div
 							className='flex items-center justify-center mt-8 sm:mt-12'
 							variants={subtitleVariants}
 							initial='hidden'
 							animate='visible'
 						>
 							<StatisticsSection />
-						</motion.div>
-					</motion.div>
+						</m.div>
+					</m.div>
 				</div>
 			</div>
 
 			{/* Carousel Dots */}
 			{staticHeroImages.length > 0 && (
-				<motion.div
+				<m.div
 					className='absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 z-20'
 					initial={{ opacity: 0, y: 20 }}
 					animate={{ opacity: 1, y: 0 }}
@@ -361,7 +361,7 @@ export default function HeroSection() {
 							/>
 						))}
 					</div>
-				</motion.div>
+				</m.div>
 			)}
 		</section>
 	)

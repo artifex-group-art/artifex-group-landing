@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useCallback } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import {
 	Upload,
 	X,
@@ -161,7 +161,7 @@ export default function HeroImageUpload({
 
 				<div className='flex flex-col items-center space-y-4'>
 					{isUploading ? (
-						<motion.div
+						<m.div
 							animate={{ rotate: 360 }}
 							transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
 							className='w-12 h-12 border-4 border-yellow-500 border-t-transparent rounded-full'
@@ -198,7 +198,7 @@ export default function HeroImageUpload({
 			{/* Status Message */}
 			<AnimatePresence>
 				{statusMessage && (
-					<motion.div
+					<m.div
 						initial={{ opacity: 0, y: -10 }}
 						animate={{ opacity: 1, y: 0 }}
 						exit={{ opacity: 0, y: -10 }}
@@ -214,7 +214,7 @@ export default function HeroImageUpload({
 							<AlertCircle className='w-5 h-5' />
 						)}
 						<span className='font-medium'>{statusMessage}</span>
-					</motion.div>
+					</m.div>
 				)}
 			</AnimatePresence>
 		</div>
