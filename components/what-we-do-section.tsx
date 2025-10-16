@@ -136,28 +136,35 @@ export function WhatWeDoSection() {
 
 					{/* Beyond Design Section */}
 					<m.div
-						initial={{ opacity: 0, y: 30 }}
-						whileInView={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.8, delay: 0.2 }}
+						initial={{ opacity: 0, scale: 0.95 }}
+						whileInView={{ opacity: 1, scale: 1 }}
+						transition={{ duration: 0.8, delay: 0.4 }}
 						viewport={{ once: true }}
-						className='bg-gradient-to-br from-primary/5 to-primary/10 rounded-2xl p-8 lg:p-12 border border-primary/10'
+						className='mt-16 relative'
 					>
-						<div className='max-w-4xl mx-auto space-y-6'>
-							<h3 className='font-heading text-2xl lg:text-3xl text-primary font-semibold text-center lg:text-left'>
-								Beyond Design
-							</h3>
-							<div className='space-y-4 font-body text-lg text-primary/80 leading-relaxed'>
-								<p className='text-center lg:text-left'>
-									We go beyond design to provide full-scale construction
-									management and execution. From site planning and logistics to
-									procurement, scheduling, supervision, and quality control — we
-									organize and oversee every stage of the building process.
-								</p>
-								<p className='text-center lg:text-left font-medium text-primary'>
-									Our mission is to ensure each project moves efficiently from
-									vision to reality, maintaining the highest standards of
-									efficiency, safety, and quality.
-								</p>
+						<div className='bg-gradient-to-br from-primary to-primary/80 rounded-2xl p-10 lg:p-16 shadow-2xl'>
+							<div className='relative'>
+								{/* Quote Mark */}
+								<div className='absolute -top-8 -left-4 text-8xl font-serif text-white/20 leading-none'>
+									"
+								</div>
+								<blockquote className='relative z-10 space-y-6'>
+									<h3 className='font-heading text-2xl lg:text-3xl font-semibold text-white text-center leading-relaxed'>
+										Beyond Design
+									</h3>
+									<p className='font-body text-lg text-white/90 text-center max-w-3xl mx-auto leading-relaxed'>
+										We go beyond design to provide full-scale construction
+										management and execution. From site planning and logistics
+										to procurement, scheduling, supervision, and quality control
+										— we organize and oversee every stage of the building
+										process.
+									</p>
+									<p className='font-body text-lg text-white text-center max-w-3xl mx-auto font-medium'>
+										Our mission is to ensure each project moves efficiently from
+										vision to reality, maintaining the highest standards of
+										efficiency, safety, and quality.
+									</p>
+								</blockquote>
 							</div>
 						</div>
 					</m.div>

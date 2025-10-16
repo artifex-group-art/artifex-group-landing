@@ -39,7 +39,10 @@ const structuredData = {
 		latitude: 24.4539,
 		longitude: 39.6123,
 	},
-	sameAs: ['https://www.instagram.com/artifexgroup.ksa'],
+	sameAs: [
+		'https://www.linkedin.com/in/rustam-khaytmetov-5638a179',
+		'https://www.instagram.com/artifexgroup.ksa',
+	],
 	description:
 		'International architecture and design studio specializing in master planning, architectural design, BIM-based design, façade engineering, 3D visualization, and construction management.',
 	priceRange: '$$$',

@@ -20,13 +20,11 @@ const Navigation = ({ isOpen, onClose }: NavigationProps) => {
 
 	const navigationItems = [
 		{ name: 'Home', id: 'hero' },
-		{ name: 'Who We Are', id: 'who-we-are' },
-		{ name: 'What We Do', id: 'what-we-do' },
-		{ name: 'Philosophy', id: 'philosophy' },
 		{ name: 'Partnerships', id: 'partnerships' },
 		{ name: 'Location', id: 'location' },
 		{ name: 'About', id: 'about' },
 		{ name: 'Projects', id: 'projects' },
+		{ name: 'News', id: 'news' },
 		{ name: 'Contact', id: 'contact' },
 	]
 

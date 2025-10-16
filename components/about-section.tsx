@@ -21,7 +21,7 @@ export function AboutSection() {
 			x: 0,
 			transition: {
 				duration: 0.8,
-				ease: 'easeInOut',
+				ease: [0.25, 0.46, 0.45, 0.94] as any,
 			},
 		},
 	}
@@ -33,7 +33,7 @@ export function AboutSection() {
 			x: 0,
 			transition: {
 				duration: 0.8,
-				ease: 'easeInOut',
+				ease: [0.25, 0.46, 0.45, 0.94] as any,
 			},
 		},
 	}
@@ -98,7 +98,7 @@ export function AboutSection() {
 								professionals united by a common vision of creating spaces that
 								inspire and transform."
 							</p>
-							<footer className='text-sm font-medium text-primary/90'>
+							<footer className='text-sm font-bold text-primary'>
 								— Rustam Khaitmetov, Founder of Artifex
 							</footer>
 						</blockquote>
